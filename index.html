@@ -15,6 +15,48 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 #menu p{font-size:20px;color:#fff;margin-bottom:40px;text-shadow:2px 2px 0 #000}
 #menu button{width:240px;height:60px;font-size:24px;font-weight:bold;color:#fff;border:4px solid #fff;border-radius:10px;cursor:pointer;background:linear-gradient(180deg,#e52521,#b71c1c);text-shadow:2px 2px 0 #000;transition:.15s}
 #menu button:active{transform:scale(.93)}
+#menu button.sec{width:190px;height:46px;font-size:18px;margin-top:14px;border-width:3px;background:linear-gradient(180deg,#3b82f6,#1d4ed8)}
+#menuInfo{margin-top:18px;color:#cfe3ff;font-size:14px;text-shadow:1px 1px 0 #000;text-align:center;line-height:1.7}
+
+#settings{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,.82);z-index:150;padding:12px}
+#settings.on{display:flex}
+.sBox{width:min(560px,100%);max-height:92%;display:flex;flex-direction:column;background:#1b2340;border:3px solid #fbd000;border-radius:14px;overflow:hidden}
+.sHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(180deg,#e52521,#a01010);flex:0 0 auto}
+.sHead h2{font-size:22px;color:#fff;text-shadow:2px 2px 0 #000}
+.sX{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(0,0,0,.25);color:#fff;font-size:16px;cursor:pointer}
+.sBody{padding:14px 16px;overflow-y:auto;flex:1 1 auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+.sRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.sRow.col{flex-direction:column;align-items:stretch;border-bottom:none}
+.sRow label{color:#fff;font-size:15px}
+.sLabelRow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#selCount{color:#fbd000;font-size:13px}
+.segs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.segs button{padding:7px 13px;font-size:14px;border-radius:7px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#cbd5e1;cursor:pointer;transition:.12s}
+.segs button.on{border-color:#fbd000;background:rgba(251,208,0,.22);color:#fbd000;font-weight:bold}
+.mini{display:flex;gap:6px}
+.mini button{padding:5px 11px;font-size:12px;border-radius:6px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#cbd5e1;cursor:pointer}
+.cat{margin-bottom:8px;border:1px solid rgba(255,255,255,.14);border-radius:9px;overflow:hidden;background:rgba(255,255,255,.04)}
+.catH{display:flex;align-items:center;gap:9px;padding:10px 12px;cursor:pointer;user-select:none}
+.catH:active{background:rgba(255,255,255,.07)}
+.cbx{width:20px;height:20px;flex:0 0 auto;border-radius:5px;border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:13px;color:#0b1026;background:transparent}
+.cbx.on{background:#4ade80;border-color:#4ade80}
+.cbx.part{background:#fbd000;border-color:#fbd000}
+.catH .nm{flex:1;color:#fff;font-size:15px}
+.catH .ct{color:#94a3b8;font-size:12px}
+.catH .ar{color:#94a3b8;font-size:11px;transition:transform .15s}
+.cat.open .catH .ar{transform:rotate(90deg)}
+.wds{display:none;padding:4px 10px 10px;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:4px}
+.cat.open .wds{display:grid}
+.wd{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:6px;cursor:pointer;user-select:none}
+.wd:active{background:rgba(255,255,255,.08)}
+.wd .cbx{width:17px;height:17px;font-size:11px}
+.wd .t{font-size:13px;color:#e2e8f0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wd .t i{color:#94a3b8;font-style:normal}
+.sFoot{display:flex;gap:10px;padding:12px 16px;background:rgba(0,0,0,.3);flex:0 0 auto}
+.sFoot button{flex:1;padding:12px;font-size:16px;font-weight:bold;border:none;border-radius:9px;color:#fff;cursor:pointer}
+.sFoot .sr{background:linear-gradient(180deg,#6b7280,#4b5563)}
+.sFoot .sk{background:linear-gradient(180deg,#4ade80,#22c55e)}
+.sWarn{color:#ff6b6b;font-size:13px;text-align:center;padding:6px 0}
 
 #game{position:absolute;inset:0;display:none}
 #game canvas{position:absolute;top:0;left:0;width:100%;height:100%;image-rendering:pixelated}
@@ -81,6 +123,45 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
     <h1>超级玛丽</h1>
     <p>顶字母 · 学单词</p>
     <button onclick="startGame()">开始冒险</button>
+    <button class="sec" onclick="openSet()">⚙ 设置</button>
+    <div id="menuInfo"></div>
+  </div>
+
+  <div id="settings">
+    <div class="sBox">
+      <div class="sHead">
+        <h2>设置</h2>
+        <button class="sX" onclick="closeSet()">✕</button>
+      </div>
+      <div class="sBody">
+        <div class="sRow">
+          <label>每关单词数</label>
+          <div class="segs" id="setWPL"></div>
+        </div>
+        <div class="sRow">
+          <label>容错次数</label>
+          <div class="segs" id="setErr"></div>
+        </div>
+        <div class="sRow">
+          <label>字母顺序打乱</label>
+          <div class="segs" id="setShuf"></div>
+        </div>
+        <div class="sRow col">
+          <div class="sLabelRow">
+            <label>单词范围 <span id="selCount"></span></label>
+            <div class="mini">
+              <button onclick="selAll(true)">全选</button>
+              <button onclick="selAll(false)">全不选</button>
+            </div>
+          </div>
+          <div id="catList"></div>
+        </div>
+      </div>
+      <div class="sFoot">
+        <button class="sr" onclick="resetSet()">恢复默认</button>
+        <button class="sk" onclick="closeSet()">完成</button>
+      </div>
+    </div>
   </div>
 
   <div id="game">
@@ -120,44 +201,117 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 </div>
 
 <script>
+// c = category key, used by the settings panel to group words
+const CATS=[
+  {k:'fruit', n:'水果'},
+  {k:'veg',   n:'蔬菜'},
+  {k:'animal',n:'动物'},
+  {k:'place', n:'地点与国家'},
+  {k:'job',   n:'职业'},
+  {k:'pron',  n:'物主代词'},
+  {k:'home',  n:'家居与家务'},
+  {k:'adj',   n:'形容词与描述'},
+  {k:'misc',  n:'其他常用词'}
+];
 const WORDS = [
-  {en:'apple',zh:'苹果'},{en:'banana',zh:'香蕉'},{en:'blueberries',zh:'蓝莓'},{en:'grapes',zh:'葡萄'},{en:'lemon',zh:'柠檬'},
-  {en:'mango',zh:'芒果'},{en:'orange',zh:'桔子/橙'},{en:'peach',zh:'桃子'},{en:'pear',zh:'梨'},{en:'pineapple',zh:'菠萝/凤梨'},
-  {en:'beans',zh:'豆子'},{en:'broccoli',zh:'西兰花'},{en:'carrot',zh:'胡萝卜'},{en:'corn',zh:'玉米'},{en:'cucumber',zh:'黄瓜'},
-  {en:'lettuce',zh:'生菜'},{en:'onion',zh:'洋葱'},{en:'peas',zh:'豌豆'},{en:'pepper',zh:'胡椒/辣椒'},{en:'potato',zh:'土豆'},
-  {en:'cat',zh:'猫'},{en:'dog',zh:'狗'},{en:'bird',zh:'鸟'},{en:'goldfish',zh:'金鱼'},{en:'hamster',zh:'仓鼠'},
-  {en:'mouse',zh:'老鼠'},{en:'rabbit',zh:'兔子'},{en:'snake',zh:'蛇'},{en:'spider',zh:'蜘蛛'},{en:'turtle',zh:'乌龟'},
-  {en:'france',zh:'法国'},{en:'china',zh:'中国'},{en:'great wall',zh:'长城'},{en:'bank',zh:'银行'},{en:'hotel',zh:'酒店/旅馆'},
-  {en:'teacher',zh:'老师'},{en:'police station',zh:'警察局'},{en:'tv station',zh:'电视台'},{en:'company',zh:'公司'},{en:'factory',zh:'工厂'},
-  {en:'hospital',zh:'医院'},{en:'please',zh:'请'},{en:'sleep',zh:'睡觉'},{en:'middle',zh:'中间的'},{en:'middle school',zh:'中学'},
-  {en:'woman',zh:'女人'},{en:'visit',zh:'拜访'},{en:'from',zh:'来自'},{en:'ms',zh:'女士'},{en:'nice to see you!',zh:'见到你很高兴！'},
-  {en:'the uk',zh:'英国'},{en:'australia',zh:'澳大利亚'},{en:'brazil',zh:'巴西'},{en:'egypt',zh:'埃及'},{en:'world',zh:'世界'},
-  {en:'classmate',zh:'同班同学'},{en:'country',zh:'国家'},{en:'famous',zh:'著名的'},{en:'building',zh:'建筑物'},{en:'lake',zh:'湖'},
-  {en:'sailing boat',zh:'帆船'},{en:'sea',zh:'海'},{en:'place',zh:'地方'},{en:'show',zh:'演出'},{en:'wild',zh:'野生的'},
-  {en:'hill',zh:'山丘'},{en:'farmer',zh:'农民'},{en:'teacher',zh:'教师'},{en:'reporter',zh:'记者'},{en:'worker',zh:'工人'},
-  {en:'writer',zh:'作家'},{en:'doctor',zh:'医生'},{en:'driver',zh:'司机'},{en:'nurse',zh:'护士'},{en:'police officer',zh:'警察'},
-  {en:'job',zh:'工作'},{en:'like',zh:'像……那样'},{en:'people',zh:'人们'},{en:'must',zh:'一定；必须'},{en:'hard',zh:'努力地；硬的'},
-  {en:'farm',zh:'农场'},{en:'its',zh:'它的'},{en:'their',zh:'他们的'},{en:'mine',zh:'我的'},{en:'yours',zh:'你的'},
-  {en:'hers',zh:'她的'},{en:'ours',zh:'我们的'},{en:'theirs',zh:'他们的'},{en:'look after',zh:'照顾'},{en:'whose',zh:'谁的'},
-  {en:'bag',zh:'包/袋子'},{en:'put ... in order',zh:'把……整理好'},{en:'photo',zh:'照片'},{en:'best',zh:'最好的'},{en:'beside',zh:'在……旁边'},
-  {en:'cousin',zh:'堂/表兄弟姐妹'},{en:'behind',zh:'在……后面'},{en:'bedroom',zh:'卧室'},{en:'kitchen',zh:'厨房'},{en:'living room',zh:'客厅'},
-  {en:'study',zh:'书房'},{en:'toilet',zh:'卫生间'},{en:'bathroom',zh:'浴室'},{en:'table',zh:'桌子'},{en:'dish',zh:'盘子/餐具'},
-  {en:'do the dishes',zh:'洗餐具'},{en:'tidy',zh:'整洁的'},{en:'put away',zh:'收起来'},{en:'paper',zh:'纸'},{en:'always',zh:'总是'},
-  {en:'keep',zh:'保持'},{en:'those',zh:'那些'},{en:'tired',zh:'疲倦的'},{en:'what a mess!',zh:'真是一团糟！'},{en:'kind',zh:'友好的'},
-  {en:'lovely',zh:'可爱的'},{en:'quiet',zh:'文静的'},{en:'thin',zh:'瘦的'},{en:'active',zh:'活跃的'},{en:'strong',zh:'强壮的'},
-  {en:'stronger',zh:'更强壮'},{en:'taller',zh:'更高'},{en:'more',zh:'更'},{en:'careful',zh:'细心的'},{en:'popular',zh:'受欢迎的'},
-  {en:'hear',zh:'听到'},{en:'everyone',zh:'每个人'},{en:'special',zh:'特别的'},{en:'twin',zh:'双胞胎之一'},{en:'a lot',zh:'很多'},
-  {en:'be yourself!',zh:'做你自己！'}
+  {en:'apple',zh:'苹果',c:'fruit'},{en:'banana',zh:'香蕉',c:'fruit'},{en:'blueberries',zh:'蓝莓',c:'fruit'},
+  {en:'grapes',zh:'葡萄',c:'fruit'},{en:'lemon',zh:'柠檬',c:'fruit'},{en:'mango',zh:'芒果',c:'fruit'},
+  {en:'orange',zh:'桔子/橙',c:'fruit'},{en:'peach',zh:'桃子',c:'fruit'},{en:'pear',zh:'梨',c:'fruit'},
+  {en:'pineapple',zh:'菠萝/凤梨',c:'fruit'},
+  {en:'beans',zh:'豆子',c:'veg'},{en:'broccoli',zh:'西兰花',c:'veg'},{en:'carrot',zh:'胡萝卜',c:'veg'},
+  {en:'corn',zh:'玉米',c:'veg'},{en:'cucumber',zh:'黄瓜',c:'veg'},{en:'lettuce',zh:'生菜',c:'veg'},
+  {en:'onion',zh:'洋葱',c:'veg'},{en:'peas',zh:'豌豆',c:'veg'},{en:'pepper',zh:'胡椒/辣椒',c:'veg'},
+  {en:'potato',zh:'土豆',c:'veg'},
+  {en:'cat',zh:'猫',c:'animal'},{en:'dog',zh:'狗',c:'animal'},{en:'bird',zh:'鸟',c:'animal'},
+  {en:'goldfish',zh:'金鱼',c:'animal'},{en:'hamster',zh:'仓鼠',c:'animal'},{en:'mouse',zh:'老鼠',c:'animal'},
+  {en:'rabbit',zh:'兔子',c:'animal'},{en:'snake',zh:'蛇',c:'animal'},{en:'spider',zh:'蜘蛛',c:'animal'},
+  {en:'turtle',zh:'乌龟',c:'animal'},{en:'wild',zh:'野生的',c:'animal'},
+  {en:'france',zh:'法国',c:'place'},{en:'china',zh:'中国',c:'place'},{en:'great wall',zh:'长城',c:'place'},
+  {en:'bank',zh:'银行',c:'place'},{en:'hotel',zh:'酒店/旅馆',c:'place'},{en:'police station',zh:'警察局',c:'place'},
+  {en:'tv station',zh:'电视台',c:'place'},{en:'company',zh:'公司',c:'place'},{en:'factory',zh:'工厂',c:'place'},
+  {en:'hospital',zh:'医院',c:'place'},{en:'middle school',zh:'中学',c:'place'},{en:'the uk',zh:'英国',c:'place'},
+  {en:'australia',zh:'澳大利亚',c:'place'},{en:'brazil',zh:'巴西',c:'place'},{en:'egypt',zh:'埃及',c:'place'},
+  {en:'world',zh:'世界',c:'place'},{en:'country',zh:'国家',c:'place'},{en:'building',zh:'建筑物',c:'place'},
+  {en:'lake',zh:'湖',c:'place'},{en:'sea',zh:'海',c:'place'},{en:'place',zh:'地方',c:'place'},
+  {en:'hill',zh:'山丘',c:'place'},{en:'farm',zh:'农场',c:'place'},{en:'sailing boat',zh:'帆船',c:'place'},
+  {en:'teacher',zh:'老师/教师',c:'job'},{en:'farmer',zh:'农民',c:'job'},{en:'reporter',zh:'记者',c:'job'},
+  {en:'worker',zh:'工人',c:'job'},{en:'writer',zh:'作家',c:'job'},{en:'doctor',zh:'医生',c:'job'},
+  {en:'driver',zh:'司机',c:'job'},{en:'nurse',zh:'护士',c:'job'},{en:'police officer',zh:'警察',c:'job'},
+  {en:'job',zh:'工作',c:'job'},{en:'classmate',zh:'同班同学',c:'job'},{en:'woman',zh:'女人',c:'job'},
+  {en:'ms',zh:'女士',c:'job'},{en:'cousin',zh:'堂/表兄弟姐妹',c:'job'},{en:'people',zh:'人们',c:'job'},
+  {en:'its',zh:'它的',c:'pron'},{en:'their',zh:'他们的',c:'pron'},{en:'mine',zh:'我的',c:'pron'},
+  {en:'yours',zh:'你的',c:'pron'},{en:'hers',zh:'她的',c:'pron'},{en:'ours',zh:'我们的',c:'pron'},
+  {en:'theirs',zh:'他们的',c:'pron'},{en:'whose',zh:'谁的',c:'pron'},{en:'those',zh:'那些',c:'pron'},
+  {en:'bedroom',zh:'卧室',c:'home'},{en:'kitchen',zh:'厨房',c:'home'},{en:'living room',zh:'客厅',c:'home'},
+  {en:'study',zh:'书房',c:'home'},{en:'toilet',zh:'卫生间',c:'home'},{en:'bathroom',zh:'浴室',c:'home'},
+  {en:'table',zh:'桌子',c:'home'},{en:'dish',zh:'盘子/餐具',c:'home'},{en:'do the dishes',zh:'洗餐具',c:'home'},
+  {en:'put away',zh:'收起来',c:'home'},{en:'put ... in order',zh:'把……整理好',c:'home'},
+  {en:'look after',zh:'照顾',c:'home'},{en:'bag',zh:'包/袋子',c:'home'},{en:'photo',zh:'照片',c:'home'},
+  {en:'paper',zh:'纸',c:'home'},{en:'what a mess!',zh:'真是一团糟！',c:'home'},
+  {en:'tidy',zh:'整洁的',c:'adj'},{en:'kind',zh:'友好的',c:'adj'},{en:'lovely',zh:'可爱的',c:'adj'},
+  {en:'quiet',zh:'文静的',c:'adj'},{en:'thin',zh:'瘦的',c:'adj'},{en:'active',zh:'活跃的',c:'adj'},
+  {en:'strong',zh:'强壮的',c:'adj'},{en:'stronger',zh:'更强壮',c:'adj'},{en:'taller',zh:'更高',c:'adj'},
+  {en:'careful',zh:'细心的',c:'adj'},{en:'popular',zh:'受欢迎的',c:'adj'},{en:'famous',zh:'著名的',c:'adj'},
+  {en:'special',zh:'特别的',c:'adj'},{en:'tired',zh:'疲倦的',c:'adj'},{en:'best',zh:'最好的',c:'adj'},
+  {en:'middle',zh:'中间的',c:'adj'},{en:'hard',zh:'努力地；硬的',c:'adj'},{en:'more',zh:'更',c:'adj'},
+  {en:'please',zh:'请',c:'misc'},{en:'sleep',zh:'睡觉',c:'misc'},{en:'visit',zh:'拜访',c:'misc'},
+  {en:'from',zh:'来自',c:'misc'},{en:'nice to see you!',zh:'见到你很高兴！',c:'misc'},
+  {en:'show',zh:'演出',c:'misc'},{en:'like',zh:'像……那样',c:'misc'},{en:'must',zh:'一定；必须',c:'misc'},
+  {en:'beside',zh:'在……旁边',c:'misc'},{en:'behind',zh:'在……后面',c:'misc'},{en:'always',zh:'总是',c:'misc'},
+  {en:'keep',zh:'保持',c:'misc'},{en:'hear',zh:'听到',c:'misc'},{en:'everyone',zh:'每个人',c:'misc'},
+  {en:'twin',zh:'双胞胎之一',c:'misc'},{en:'a lot',zh:'很多',c:'misc'},{en:'be yourself!',zh:'做你自己！',c:'misc'}
 ];
 
 const G=0.52,JF=-13,MS=4,FR=0.82;
-const WPL=10;              // Words per level
-const MAX_ERR=5;           // Errors allowed per level
-const TOTAL_LV=Math.max(1,Math.floor(WORDS.length/WPL));  // Tail words merge into last level
 const SCENES=['grass','cloud','night'];
+const SKEY='mario-words-settings';
+const DEF={wpl:10,maxErr:5,shuffle:true,words:null};   // words:null = every word enabled
+
+let S={...DEF};
+let pool=[];        // Words actually in play, in WORDS order
+
+function loadSet(){
+  try{
+    let raw=localStorage.getItem(SKEY);
+    if(raw){
+      let o=JSON.parse(raw);
+      if([5,10,15,20].includes(o.wpl))S.wpl=o.wpl;
+      if([3,5,10,999].includes(o.maxErr))S.maxErr=o.maxErr;
+      if(typeof o.shuffle==='boolean')S.shuffle=o.shuffle;
+      // Keep only keys that still exist, so editing WORDS can't corrupt a saved set
+      if(Array.isArray(o.words)){
+        let valid=o.words.filter(en=>WORDS.some(w=>w.en===en));
+        S.words=valid.length?valid:null;
+      }
+    }
+  }catch(e){}
+  buildPool();
+}
+function saveSet(){
+  try{localStorage.setItem(SKEY,JSON.stringify(S))}catch(e){}
+}
+function isOn(en){return !S.words||S.words.includes(en)}
+function buildPool(){pool=WORDS.filter(w=>isOn(w.en))}
+
+function wpl(){return S.wpl}
+function maxErr(){return S.maxErr}
+// Level count over the selected pool. A leftover tail merges into the last level only
+// when it is small (≤1/3 of a level); a bigger tail becomes its own shorter level,
+// so picking 15/level can't silently produce a 25-word finale.
+function totalLv(){
+  let n=pool.length,per=wpl();
+  if(n<=per)return 1;
+  let full=Math.floor(n/per),rem=n%per;
+  return rem===0?full:(rem*3<=per?full:full+1);
+}
+// Word range for a level, matching totalLv's split
+function lvRange(lv){
+  let per=wpl(),st=lv*per;
+  return [st,lv>=totalLv()-1?pool.length:st+per];
+}
 let c,ctx,W,H,GY,BS,BSP,cloudY;
 let game={
-  words:[],idx:0,score:0,total:WPL,word:null,seq:'',got:[],done:0,
+  words:[],idx:0,score:0,total:10,word:null,seq:'',got:[],done:0,
   level:0,scene:0,err:0,
   playing:false,trans:false,anim:null,wordLog:[],order:null,
   cut:0,cutT:0,pendingClear:false
@@ -208,10 +362,10 @@ function init(){
   loadLevel();loop();
 }
 
-// Sequential word selection: level n takes WORDS[n*WPL … n*WPL+WPL], tail merges into the last level
+// Sequential selection over the enabled pool
 function loadLevel(){
-  let lv=game.level,st=lv*WPL,en=(lv>=TOTAL_LV-1)?WORDS.length:st+WPL;
-  game.words=WORDS.slice(st,en);
+  let lv=game.level,[st,en]=lvRange(lv);
+  game.words=pool.slice(st,en);
   game.total=game.words.length;
   game.idx=0;game.err=0;game.wordLog=[];game.got=[];game.order=null;
   game.playing=true;game.trans=false;game.cut=0;game.cutT=0;game.pendingClear=false;
@@ -254,8 +408,8 @@ function loadWord(){
 function posBlocks(){
   let ls=game.seq.split('');
   if(!game.order||game.order.length!==ls.length){
-    let ord=ls.map((l,i)=>({l,hit:false}));
-    for(let i=ord.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
+    let ord=ls.map(l=>({l,hit:false}));
+    if(S.shuffle)for(let i=ord.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
     game.order=ord;
   }
   // game.order is the source of truth for hit state, so a resize rebuild keeps progress
@@ -282,8 +436,9 @@ function updHUD(){
   document.getElementById('score').textContent=game.score;
   document.getElementById('hintW').textContent=game.word?game.word.zh:'';
   document.getElementById('prog').textContent='第'+(game.level+1)+'关 '+Math.min(game.idx+1,game.total)+'/'+game.total;
-  let left=MAX_ERR-game.err;
-  document.getElementById('lives').textContent='❤'.repeat(Math.max(0,left))+'♡'.repeat(Math.min(MAX_ERR,game.err));
+  let me=maxErr();
+  document.getElementById('lives').textContent=
+    me>=999?'∞':'❤'.repeat(Math.max(0,me-game.err))+'♡'.repeat(Math.min(me,game.err));
 }
 
 function updSlots(){
@@ -317,6 +472,7 @@ function showMenu(){
   document.getElementById('game').style.display='none';
   document.getElementById('result').style.display='none';
   if(game.anim)cancelAnimationFrame(game.anim);game.playing=false;
+  updMenuInfo();
 }
 
 function banner(t,s){
@@ -356,13 +512,13 @@ function updateCut(dt){
     if(mario.y+mario.h<cloudY)mario.alpha=Math.max(0,mario.alpha-.06*(dt/16));
     if(mario.alpha<=0){
       game.cut=5;game.cutT=0;
-      let last=game.level>=TOTAL_LV-1;
+      let last=game.level>=totalLv()-1;
       if(last)banner('全部通关!','131 个单词全部完成');
       else banner('第 '+(game.level+1)+' 关 通过!','爬上云端 · 进入第 '+(game.level+2)+' 关');
     }
   }else if(game.cut===5){
     if(game.cutT>2200){
-      if(game.level>=TOTAL_LV-1){game.cut=0;endGame(true)}
+      if(game.level>=totalLv()-1){game.cut=0;endGame(true)}
       else{game.level++;game.cut=0;loadLevel()}
     }
   }
@@ -374,11 +530,15 @@ function endGame(win){
   updWordList();
   document.getElementById('rTitle').textContent=win?'全部通关!':'继续加油!';
   document.getElementById('rStats').innerHTML=
-    '到达: <span>第 '+(game.level+1)+' 关</span><br>得分: <span>'+game.score+'</span><br>完成单词: <span>'+game.done+'</span> 个';
+    '到达: <span>第 '+(game.level+1)+'/'+totalLv()+' 关</span><br>得分: <span>'+game.score+
+    '</span><br>完成单词: <span>'+game.done+'</span> / '+pool.length+' 个';
   setTimeout(()=>{document.getElementById('result').style.display='flex'},400);
 }
 
-function startGame(){goFull();init()}
+function startGame(){
+  if(pool.length<wpl()){openSet();return}   // Not enough words for even one level
+  goFull();init();
+}
 
 // Browsers only allow fullscreen from a user gesture, so this rides the button click
 function goFull(){
@@ -406,6 +566,121 @@ function doHint(){
   let el=document.getElementById('fx'),d=document.createElement('div');
   d.textContent=game.word.en;d.className='hw';
   el.appendChild(d);setTimeout(()=>d.remove(),1200);
+}
+
+// ---------- Settings panel ----------
+const WPL_OPTS=[5,10,15,20];
+const ERR_OPTS=[{v:3,n:'3'},{v:5,n:'5'},{v:10,n:'10'},{v:999,n:'无限'}];
+
+function openSet(){document.getElementById('settings').classList.add('on');renderSet()}
+function closeSet(){
+  // Never leave a pool too small to build one level
+  if(pool.length<1){selAll(true)}
+  document.getElementById('settings').classList.remove('on');
+  saveSet();updMenuInfo();
+}
+function resetSet(){S={...DEF};buildPool();saveSet();renderSet();updMenuInfo()}
+
+function segs(elId,opts,cur,onPick){
+  let el=document.getElementById(elId);el.innerHTML='';
+  opts.forEach(o=>{
+    let b=document.createElement('button');
+    b.textContent=o.n;
+    if(o.v===cur)b.className='on';
+    b.onclick=()=>{onPick(o.v);saveSet();renderSet();updMenuInfo()};
+    el.appendChild(b);
+  });
+}
+
+function renderSet(){
+  segs('setWPL',WPL_OPTS.map(v=>({v,n:v+''})),S.wpl,v=>S.wpl=v);
+  segs('setErr',ERR_OPTS,S.maxErr,v=>S.maxErr=v);
+  segs('setShuf',[{v:true,n:'打乱'},{v:false,n:'按顺序'}],S.shuffle,v=>S.shuffle=v);
+  renderCats();
+  updSelCount();
+}
+
+function renderCats(){
+  let host=document.getElementById('catList');
+  let open=new Set([...host.querySelectorAll('.cat.open')].map(e=>e.dataset.k));
+  host.innerHTML='';
+  CATS.forEach(cat=>{
+    let ws=WORDS.filter(w=>w.c===cat.k);
+    if(!ws.length)return;
+    let on=ws.filter(w=>isOn(w.en)).length;
+    let box=document.createElement('div');
+    box.className='cat'+(open.has(cat.k)?' open':'');
+    box.dataset.k=cat.k;
+
+    let h=document.createElement('div');h.className='catH';
+    let cb=document.createElement('div');
+    cb.className='cbx'+(on===ws.length?' on':on?' part':'');
+    cb.textContent=on===ws.length?'✓':on?'–':'';
+    cb.onclick=e=>{e.stopPropagation();setCat(cat.k,on!==ws.length)};
+    let nm=document.createElement('div');nm.className='nm';nm.textContent=cat.n;
+    let ct=document.createElement('div');ct.className='ct';ct.textContent=on+'/'+ws.length;
+    let ar=document.createElement('div');ar.className='ar';ar.textContent='▶';
+    h.append(cb,nm,ct,ar);
+    h.onclick=()=>box.classList.toggle('open');
+
+    let wrap=document.createElement('div');wrap.className='wds';
+    ws.forEach(w=>{
+      let row=document.createElement('div');row.className='wd';
+      let c2=document.createElement('div');
+      let sel=isOn(w.en);
+      c2.className='cbx'+(sel?' on':'');c2.textContent=sel?'✓':'';
+      let t=document.createElement('div');t.className='t';
+      t.innerHTML=w.en+' <i>'+w.zh+'</i>';
+      row.append(c2,t);
+      row.onclick=()=>setWord(w.en,!isOn(w.en));
+      wrap.appendChild(row);
+    });
+    box.append(h,wrap);
+    host.appendChild(box);
+  });
+}
+
+// S.words null means "all"; materialize it before doing partial selection
+function ensureList(){if(!S.words)S.words=WORDS.map(w=>w.en)}
+function setWord(en,on){
+  ensureList();
+  if(on){if(!S.words.includes(en))S.words.push(en)}
+  else S.words=S.words.filter(x=>x!==en);
+  afterSel();
+}
+function setCat(k,on){
+  ensureList();
+  let ks=WORDS.filter(w=>w.c===k).map(w=>w.en);
+  if(on)ks.forEach(en=>{if(!S.words.includes(en))S.words.push(en)});
+  else S.words=S.words.filter(x=>!ks.includes(x));
+  afterSel();
+}
+function selAll(on){
+  S.words=on?null:[];
+  afterSel();
+}
+function afterSel(){
+  if(S.words&&S.words.length===WORDS.length)S.words=null;   // normalize back to "all"
+  buildPool();saveSet();renderCats();updSelCount();updMenuInfo();
+}
+
+function updSelCount(){
+  let n=pool.length,lv=totalLv(),per=wpl();
+  let el=document.getElementById('selCount');
+  if(n<per){
+    el.innerHTML='<span style="color:#ff6b6b">已选 '+n+' 个 · 不足一关('+per+' 个)</span>';
+  }else{
+    let r=lvRange(lv-1),lastN=r[1]-r[0];
+    el.textContent='已选 '+n+' 个 · '+lv+' 关'+(lastN!==per?'(末关 '+lastN+' 个)':'');
+  }
+}
+
+function updMenuInfo(){
+  let n=pool.length,per=wpl(),el=document.getElementById('menuInfo');
+  if(!el)return;
+  if(n<per){el.innerHTML='<span style="color:#ff6b6b">单词不足一关，请到设置里增选</span>';return}
+  el.textContent='共 '+n+' 词 · '+totalLv()+' 关 · 每关 '+per+' 词 · '+
+    (S.maxErr>=999?'无限容错':S.maxErr+' 次容错')+' · '+(S.shuffle?'字母打乱':'字母顺序');
 }
 
 let K={left:false,right:false,jump:false,space:false,touch:false};
@@ -568,7 +843,7 @@ function wrongBlock(b){
   if(mushroom.hammerTimer<=0)mushroom.hammerTimer=18;
   game.score=Math.max(0,game.score-5);
   updHUD();
-  if(game.err>=MAX_ERR){game.trans=true;endGame(false)}
+  if(game.err>=maxErr()){game.trans=true;endGame(false)}
 }
 
 function hitBlock(b){
@@ -893,7 +1168,10 @@ function drawSeeds(){
 }
 
 window.addEventListener('resize',resize);
-window.addEventListener('load',()=>{document.getElementById('menu').style.display='flex'});
+window.addEventListener('load',()=>{
+  loadSet();updMenuInfo();
+  document.getElementById('menu').style.display='flex';
+});
 </script>
 </body>
 </html>
