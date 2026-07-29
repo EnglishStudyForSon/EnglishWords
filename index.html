@@ -25,13 +25,16 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 #hud .hint .l{color:#888;font-size:clamp(9px,1.6vh,12px)}
 #hud .hint .w{color:#fbd000;font-size:clamp(14px,3.2vh,22px);text-shadow:2px 2px 0 #000}
 #hud .p{color:#fff;font-size:clamp(10px,2vh,14px);text-shadow:2px 2px 0 #000}
+#hud #lives{font-size:clamp(9px,1.8vh,13px);letter-spacing:1px;color:#ff6b6b;margin-top:2px}
 #hud .hb{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);border-radius:50%;width:clamp(28px,4vh,36px);height:clamp(28px,4vh,36px);color:#fff;font-size:clamp(14px,2.5vh,18px);cursor:pointer;touch-action:none;display:flex;align-items:center;justify-content:center;transition:.1s;padding:0;line-height:1}
 #hud .hb:active{background:rgba(251,208,0,.3);border-color:#fbd000}
 
-#slots{position:absolute;bottom:clamp(8px,2.5vh,18px);left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:clamp(3px,1vh,8px)}
-#slots .slot{width:clamp(28px,6vw,48px);height:clamp(32px,7vw,56px);border-bottom:4px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:clamp(14px,4vw,28px);font-weight:bold;color:#fff;text-shadow:2px 2px 0 #000;background:rgba(0,0,0,.35);border-radius:4px 4px 0 0;transition:.3s}
+#slots{position:absolute;bottom:clamp(8px,2.5vh,18px);left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-wrap:wrap;justify-content:center;max-width:96vw;gap:clamp(3px,1vh,8px)}
+#slots .slot{width:clamp(22px,5vw,44px);height:clamp(30px,6.5vw,52px);border-bottom:4px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:clamp(13px,3.6vw,26px);font-weight:bold;color:#fff;text-shadow:2px 2px 0 #000;background:rgba(0,0,0,.35);border-radius:4px 4px 0 0;transition:.3s}
 #slots .slot.f{border-bottom-color:#4ade80;color:#4ade80;background:rgba(74,222,128,.12)}
 #slots .slot.cur{border-bottom-color:#fbd000;animation:pulse .8s ease infinite}
+#slots .slot.gap{width:clamp(10px,2.2vw,18px);border-bottom:none;background:transparent}
+#slots .slot.fixed{border-bottom-color:rgba(255,255,255,.12);color:rgba(255,255,255,.55);background:rgba(0,0,0,.2)}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px rgba(251,208,0,.25)}50%{box-shadow:0 0 22px rgba(251,208,0,.55)}}
 
 #fx{position:absolute;inset:0;pointer-events:none;z-index:100}
@@ -44,6 +47,11 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 @keyframes zfade{0%{opacity:0;transform:translateY(20px)}25%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-20px)}}
 .hw{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(36px,8vh,64px);font-weight:bold;color:#fff;text-shadow:4px 4px 0 #000,0 0 30px rgba(251,208,0,.5);pointer-events:none;z-index:130;animation:hwFade 1.2s ease forwards}
 @keyframes hwFade{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}30%{transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-60%) scale(.8)}}
+
+.banner{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;z-index:140;animation:bnFade 2.6s ease forwards}
+.banner .t{font-size:clamp(34px,7vh,62px);font-weight:bold;color:#fbd000;text-shadow:4px 4px 0 #e52521,8px 8px 0 #000}
+.banner .s2{font-size:clamp(15px,2.6vh,24px);color:#fff;margin-top:12px;text-shadow:2px 2px 0 #000}
+@keyframes bnFade{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}28%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(.95)}}
 
 #wordList{position:absolute;top:clamp(60px,9vh,80px);right:clamp(4px,1vw,8px);z-index:55;max-height:calc(100% - 20vh);overflow-y:auto;pointer-events:none;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
 #wordList .wl{display:flex;align-items:center;gap:4px;padding:clamp(2px,.4vh,4px) clamp(4px,1vw,8px);margin:2px 0;border-radius:4px;background:rgba(0,0,0,.45);font-size:clamp(10px,1.8vh,13px);color:#fff;text-shadow:1px 1px 0 #000;white-space:nowrap}
@@ -85,10 +93,13 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
       <button id="btnJump">JUMP</button>
     </div>
     <div id="hud">
-      <div class="s" id="score">0</div>
+      <div>
+        <div class="s" id="score">0</div>
+        <div class="p" id="lives">❤❤❤❤❤</div>
+      </div>
       <div class="hint"><span class="l">拼出:</span><br><span class="w" id="hintW">苹果</span></div>
       <div style="display:flex;align-items:center;gap:4px">
-        <div class="p" id="prog">1/10</div>
+        <div class="p" id="prog">1-1/10</div>
         <button id="btnRotate" class="hb" title="旋转屏幕">🔄</button>
         <button id="btnHint" class="hb">🔊</button>
       </div>
@@ -139,16 +150,26 @@ const WORDS = [
   {en:'be yourself!',zh:'做你自己！'}
 ];
 
-const G=0.52,JF=-13,MS=4,FR=0.82,MG=0.1;
+const G=0.52,JF=-13,MS=4,FR=0.82;
+const WPL=10;              // Words per level
+const MAX_ERR=5;           // Errors allowed per level
+const TOTAL_LV=Math.max(1,Math.floor(WORDS.length/WPL));  // Tail words merge into last level
+const SCENES=['grass','cloud','night'];
 let c,ctx,W,H,GY,BS,BSP,cloudY;
 let game={
-  words:[],idx:0,score:0,total:10,word:null,got:[],done:0,
-  playing:false,trans:false,anim:null,wordLog:[],cloudMode:false
+  words:[],idx:0,score:0,total:WPL,word:null,seq:'',got:[],done:0,
+  level:0,scene:0,err:0,
+  playing:false,trans:false,anim:null,wordLog:[],order:null,
+  cut:0,cutT:0,pendingClear:false
 };
-let mario={x:0,y:0,vx:0,vy:0,w:36,h:48,onG:true,face:1,state:'idle',jT:0,cool:0};
+let mario={x:0,y:0,vx:0,vy:0,w:36,h:48,onG:true,face:1,state:'idle',jT:0,cool:0,alpha:1};
 let blocks=[],parts=[],coins=[],seeds=[];
-let mushroom={height:0,target:0,x:0,stemW:28,capW:64,capH:22,landed:false,lastGY:0,waterTimer:0,waterAmount:0,hammerTimer:0,hammerAmount:0};
+let mushroom={height:0,target:0,x:0,stemW:28,capW:64,capH:22,waterTimer:0,waterAmount:0,hammerTimer:0};
 let aCtx=null;
+
+// Only a–z letters are spellable; spaces and punctuation are auto-filled
+function seqOf(en){return en.toLowerCase().replace(/[^a-z]/g,'')}
+function maxMH(){return GY-cloudY-mushroom.capH-20}   // Cap height that puts Mario's head at the clouds
 
 function sfx(f,d,t,v){
   try{
@@ -166,73 +187,117 @@ function sCoin(){sfx(988,.05,'sine',.05);setTimeout(()=>sfx(1319,.06,'sine',.05)
 function sMushroom(){sfx(659,.1,'triangle',.1);setTimeout(()=>sfx(880,.12,'triangle',.1),80)}
 function sError(){sfx(180,.15,'sawtooth',.08);setTimeout(()=>sfx(120,.2,'sawtooth',.06),120)}
 function sDone(){[523,587,659,784,880,1047].forEach((f,i)=>setTimeout(()=>sfx(f,.09,'sine',.06),i*70))}
+function sClimb(){[392,440,494,523,587,659,698,784].forEach((f,i)=>setTimeout(()=>sfx(f,.1,'triangle',.05),i*90))}
+function sLevel(){[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>sfx(f,.16,'square',.06),i*130))}
 
 function speak(t,lang='en-US',rate=.85){
   try{window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang=lang;u.rate=rate;window.speechSynthesis.speak(u)}catch(e){}
 }
 
-function shuf(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 
 function init(){
   if(game.anim){cancelAnimationFrame(game.anim);game.anim=null}
   document.getElementById('result').style.display='none';
   c=document.getElementById('c');ctx=c.getContext('2d');
   setupTouch();
+  game.score=0;game.done=0;game.level=0;
   resize();
-  let pool=shuf(WORDS).slice(0,20);
-  game.words=pool;game.idx=0;game.score=0;game.got=[];game.done=0;game.wordLog=[];
-  game.playing=true;game.trans=false;game.total=Math.min(pool.length,10);game.cloudMode=false;
-  mushroom.height=0;mushroom.target=0;mushroom.waterTimer=0;mushroom.waterAmount=0;
-  mushroom.hammerTimer=0;mushroom.hammerAmount=0;
   document.getElementById('game').style.display='block';
   document.getElementById('menu').style.display='none';
   resize();
-  loadWord();loop();
+  loadLevel();loop();
+}
+
+// Sequential word selection: level n takes WORDS[n*WPL … n*WPL+WPL], tail merges into the last level
+function loadLevel(){
+  let lv=game.level,st=lv*WPL,en=(lv>=TOTAL_LV-1)?WORDS.length:st+WPL;
+  game.words=WORDS.slice(st,en);
+  game.total=game.words.length;
+  game.idx=0;game.err=0;game.wordLog=[];game.got=[];game.order=null;
+  game.playing=true;game.trans=false;game.cut=0;game.cutT=0;game.pendingClear=false;
+  game.scene=lv%SCENES.length;
+  mushroom.height=0;mushroom.target=0;mushroom.waterTimer=0;mushroom.waterAmount=0;
+  mushroom.hammerTimer=0;
+  mario.alpha=1;
+  parts=[];coins=[];seeds=[];cld=null;
+  updWordList();
+  banner('第 '+(lv+1)+' 关',game.total+' 个单词 · 顶字母让蘑菇长到云端');
+  loadWord();
 }
 
 function resize(){
+  if(!c)return;
   W=window.innerWidth;H=window.innerHeight;
   c.width=W;c.height=H;GY=H-80;cloudY=Math.max(60,Math.min(GY*.15,100));
   BS=Math.min(50,W/12);BSP=BS*1.5;
   mushroom.x=Math.min(80,W*.12);
-  if(blocks.length&&game.word)posBlocks(game.word);
-  if(blocks[0]){mario.x=blocks[0].x-BS;mario.y=GY-mario.h}
+  if(game.word)posBlocks();
+  if(blocks[0]&&!game.cut){mario.x=blocks[0].x-BS;mario.y=GY-mario.h}
+  mario.x=Math.max(20,Math.min(mario.x,W-mario.w-20));
+  mushroom.target=Math.min(mushroom.target,maxMH());
+  mushroom.height=Math.min(mushroom.height,maxMH());
 }
 
 function loadWord(){
-  if(game.idx>=game.total){endGame(true);return}
-  game.word=game.words[game.idx];game.got=[];game.trans=false;
-  posBlocks(game.word);updHUD();updSlots();
+  if(game.idx>=game.total){levelClear();return}
+  game.word=game.words[game.idx];game.seq=seqOf(game.word.en);
+  game.got=[];game.trans=false;game.order=null;
+  posBlocks();updHUD();updSlots();
   let b=blocks[0];
-  mario.x=b?b.x-BS:W/2-BS;mario.y=GY-mario.h;
+  mario.x=b?Math.max(20,b.x-BS):W/2-BS;mario.y=GY-mario.h;
   mario.vx=0;mario.vy=0;mario.onG=true;mario.state='idle';mario.face=1;mario.cool=0;
-  parts=[];coins=[];seeds=[];mushroom.landed=false;
-  speak(game.word.en, 'en-US', .7);
+  parts=[];coins=[];seeds=[];
+  speak(game.word.en,'en-US',.7);
 }
 
-function posBlocks(word){
-  blocks=[];let ls=word.en.split('');
-  // Shuffle letter order
-  for(let i=ls.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[ls[i],ls[j]]=[ls[j],ls[i]]}
-  let tw=ls.length*BSP,sx=(W-tw)/2+BS/2;
-  ls.forEach((l,i)=>{
-    blocks.push({x:sx+i*BSP,y:GY-115,letter:l.toLowerCase(),disp:l,hit:false,bY:0,bVY:0,idx:i,w:BS,h:BS});
+// Lay out one block per spellable letter. Wide words wrap to a second reachable row.
+function posBlocks(){
+  let ls=game.seq.split('');
+  if(!game.order||game.order.length!==ls.length){
+    let ord=ls.map((l,i)=>({l,hit:false}));
+    for(let i=ord.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
+    game.order=ord;
+  }
+  // game.order is the source of truth for hit state, so a resize rebuild keeps progress
+  let ord=game.order,n=ord.length;
+  // Always one row across the full width; long words shrink the blocks instead of wrapping
+  let avail=W-40;
+  let sp=Math.min(BSP,avail/n);
+  let bw=Math.max(14,Math.min(BS,sp-4));
+  let tw=(n-1)*sp+bw,sx=(W-tw)/2,y=GY-115;
+  blocks=[];
+  ord.forEach((o,i)=>{
+    blocks.push({x:sx+i*sp,y,letter:o.l,disp:o.l,hit:o.hit,bY:0,bVY:0,idx:i,w:bw,h:bw,glow:0});
   });
+}
+
+// Vertical band the letter row occupies — the cap stops being a platform inside it
+// so Mario is never parked above a block he still has to headbutt.
+function rowBand(){
+  let b=blocks[0];if(!b)return null;
+  return {top:b.y,bot:b.y+b.h};
 }
 
 function updHUD(){
   document.getElementById('score').textContent=game.score;
   document.getElementById('hintW').textContent=game.word?game.word.zh:'';
-  document.getElementById('prog').textContent=(game.idx+1)+'/'+game.total;
+  document.getElementById('prog').textContent='第'+(game.level+1)+'关 '+Math.min(game.idx+1,game.total)+'/'+game.total;
+  let left=MAX_ERR-game.err;
+  document.getElementById('lives').textContent='❤'.repeat(Math.max(0,left))+'♡'.repeat(Math.min(MAX_ERR,game.err));
 }
 
 function updSlots(){
   let el=document.getElementById('slots');el.innerHTML='';
   if(!game.word)return;
-  game.word.en.split('').forEach((l,i)=>{
+  let li=0;   // Index into the spellable-letter sequence
+  game.word.en.split('').forEach(ch=>{
     let d=document.createElement('div');d.className='slot';
-    if(i<game.got.length){d.textContent=game.got[i];d.classList.add('f')}
-    else if(i===game.got.length)d.classList.add('cur');
+    if(/[a-zA-Z]/.test(ch)){
+      if(li<game.got.length){d.textContent=game.got[li];d.classList.add('f')}
+      else if(li===game.got.length)d.classList.add('cur');
+      li++;
+    }else if(ch===' '){d.classList.add('gap')}
+    else{d.textContent=ch;d.classList.add('fixed')}
     el.appendChild(d);
   });
 }
@@ -254,38 +319,90 @@ function showMenu(){
   if(game.anim)cancelAnimationFrame(game.anim);game.playing=false;
 }
 
+function banner(t,s){
+  let el=document.getElementById('fx'),d=document.createElement('div');
+  d.className='banner';d.innerHTML='<div class="t">'+t+'</div><div class="s2">'+s+'</div>';
+  el.appendChild(d);setTimeout(()=>d.remove(),2700);
+}
+
+// All words done → mushroom has reached the clouds → auto-play climb cutscene
+function levelClear(){
+  game.trans=true;game.cut=1;game.cutT=0;
+  mushroom.target=maxMH();
+  sLevel();
+}
+
+function updateCut(dt){
+  game.cutT+=dt;
+  let capTop=GY-mushroom.height-mushroom.capH;
+  if(game.cut===1){
+    // Wait for the mushroom to finish growing
+    mario.state='idle';mario.vx=0;
+    if(mushroom.target-mushroom.height<2&&game.cutT>500){game.cut=2;game.cutT=0;sClimb()}
+  }else if(game.cut===2){
+    // Walk over to the stem
+    let tx=mushroom.x-mario.w/2,dx=tx-mario.x;
+    if(Math.abs(dx)<4||game.cutT>4000){mario.x=tx;mario.vx=0;game.cut=3;game.cutT=0}
+    else{mario.vx=Math.sign(dx)*2.6*(dt/16);mario.x+=mario.vx;mario.face=Math.sign(dx);mario.state='run'}
+  }else if(game.cut===3){
+    // Climb the stem
+    mario.x=mushroom.x-mario.w/2;mario.state='jump';mario.onG=false;
+    mario.y-=2.6*(dt/16);
+    if(game.cutT%120<20)parts.push({x:mario.x+mario.w/2+(Math.random()-.5)*20,y:mario.y+mario.h,vx:(Math.random()-.5)*1.5,vy:1+Math.random(),lf:.8,color:'#fff',sz:2+Math.random()*3});
+    if(mario.y+mario.h<=capTop){mario.y=capTop-mario.h;game.cut=4;game.cutT=0;fireworks(mushroom.x,cloudY+40)}
+  }else if(game.cut===4){
+    // Leap into the clouds and fade out
+    mario.y-=3.2*(dt/16);
+    if(mario.y+mario.h<cloudY)mario.alpha=Math.max(0,mario.alpha-.06*(dt/16));
+    if(mario.alpha<=0){
+      game.cut=5;game.cutT=0;
+      let last=game.level>=TOTAL_LV-1;
+      if(last)banner('全部通关!','131 个单词全部完成');
+      else banner('第 '+(game.level+1)+' 关 通过!','爬上云端 · 进入第 '+(game.level+2)+' 关');
+    }
+  }else if(game.cut===5){
+    if(game.cutT>2200){
+      if(game.level>=TOTAL_LV-1){game.cut=0;endGame(true)}
+      else{game.level++;game.cut=0;loadLevel()}
+    }
+  }
+}
+
 function endGame(win){
-  game.playing=false;
+  game.playing=false;game.cut=0;
   if(!win&&game.word)game.wordLog.push({en:game.word.en,zh:game.word.zh,s:'fail'});
   updWordList();
-  if(win)game.cloudMode=true;
-  document.getElementById('rTitle').textContent=win?'通关成功!':'继续加油!';
-  document.getElementById('rStats').innerHTML='得分: <span>'+game.score+'</span><br>完成: <span>'+game.done+'</span> 个';
+  document.getElementById('rTitle').textContent=win?'全部通关!':'继续加油!';
+  document.getElementById('rStats').innerHTML=
+    '到达: <span>第 '+(game.level+1)+' 关</span><br>得分: <span>'+game.score+'</span><br>完成单词: <span>'+game.done+'</span> 个';
   setTimeout(()=>{document.getElementById('result').style.display='flex'},400);
 }
 
-function startGame(){init()}
+function startGame(){goFull();init()}
+
+// Browsers only allow fullscreen from a user gesture, so this rides the button click
+function goFull(){
+  try{
+    let e=document.documentElement,f=e.requestFullscreen||e.webkitRequestFullscreen||e.msRequestFullscreen;
+    if(f&&!document.fullscreenElement){let r=f.call(e);if(r&&r.catch)r.catch(()=>{})}
+  }catch(e){}
+}
 
 function doRotate(){
-  if(screen.orientation&&screen.orientation.lock){
-    screen.orientation.lock('landscape').catch(()=>{
-      showRotateToast();
-    });
-  }else{
-    showRotateToast();
-  }
-}
-function showRotateToast(){
-  let el=document.getElementById('fx'),d=document.createElement('div');
-  d.textContent='请横屏使用';d.className='hw';d.style.fontSize='clamp(24px,5vh,40px)';d.style.color='#fbd000';
-  el.appendChild(d);setTimeout(()=>d.remove(),1500);
+  try{
+    goFull();
+    if(screen.orientation&&screen.orientation.lock){
+      let r=screen.orientation.lock('landscape');
+      if(r&&r.catch)r.catch(()=>{});
+    }
+  }catch(e){}
 }
 
 function doHint(){
   if(!game.playing||!game.word||game.trans)return;
   speak(game.word.en);
-  let expected=game.word.en[game.got.length];
-  blocks.forEach(b=>{if(!b.hit&&b.letter===expected)b.glow=90});
+  let expected=game.seq[game.got.length];
+  blocks.forEach(b=>{if(!b.hit&&b.letter===expected)b.glow=1200});
   let el=document.getElementById('fx'),d=document.createElement('div');
   d.textContent=game.word.en;d.className='hw';
   el.appendChild(d);setTimeout(()=>d.remove(),1200);
@@ -345,7 +462,11 @@ function loop(){
   let last=0;
   function frame(t){
     let dt=last?Math.min(t-last,33):16;last=t;
-    if(game.playing&&!game.trans)update(dt);
+    if(game.playing){
+      if(game.cut){updateCut(dt);updateWorld(dt)}
+      else if(!game.trans)update(dt);
+      else updateWorld(dt);
+    }
     draw();
     game.anim=requestAnimationFrame(frame);
   }
@@ -360,7 +481,7 @@ function update(dt){
 
   if(K.jump&&mario.onG){
     mario.vy=JF*(dt/16);mario.onG=false;mario.jT=14;K.jump=false;
-    sJump();jumpPuff(mario.x+mario.w/2,GY);
+    sJump();jumpPuff(mario.x+mario.w/2,mario.y+mario.h);
   }
   if(!mario.onG){
     mario.vy+=G*(dt/16);mario.jT--;
@@ -376,93 +497,90 @@ function update(dt){
   }
   if(mario.cool>0)mario.cool-=dt;
   checkBlocks(dt);
+  // The cap is not a platform during play. Letters now span the full width in one row,
+  // so standing on the cap would put Mario's head above blocks he still has to hit
+  // from below — unwinnable at any cap height. The climb is the cutscene's job.
+  if(mario.y<cloudY&&mario.vy<0){mario.vy=2;mario.y=cloudY}
+  updateWorld(dt);
+}
+
+// Physics and timers that keep running during word transitions and cutscenes
+function updateWorld(dt){
   parts=parts.filter(p=>{p.x+=p.vx*(dt/16);p.y+=p.vy*(dt/16);p.vy+=.15*(dt/16);p.lf-=.025*(dt/16);return p.lf>0});
   coins=coins.filter(c=>{c.y+=c.vy*(dt/16);c.vy+=.3*(dt/16);c.lf-=.018*(dt/16);return c.lf>0&&c.y<H});
-  // Seeds fall from hit blocks → water left mushroom on landing
+  // One seed per completed word → waters the mushroom where it lands
   seeds=seeds.filter(s=>{
     s.x+=s.vx*(dt/16);s.vy+=G*(dt/16);s.y+=s.vy*(dt/16);
-    if(s.y+s.h>=GY){ // Landed
-      let maxH=GY-cloudY-mushroom.capH-20,baseH=40;
-      mushroom.waterAmount+=Math.max(0,Math.min(maxH-mushroom.height,(maxH-baseH)/game.word.en.length*MG));
+    let hitMario=!game.cut&&mario.x<s.x+s.w&&mario.x+mario.w>s.x&&mario.y<s.y+s.h&&mario.y+mario.h>s.y;
+    if(s.y+s.h>=GY||hitMario){
+      mushroom.waterAmount+=s.grow;
       if(mushroom.waterTimer<=0)mushroom.waterTimer=25;
+      burstParts(s.x+s.w/2,s.y+s.h/2);
       return false;
-    }
-    // Mario can catch seed early
-    if(mario.x<s.x+s.w&&mario.x+mario.w>s.x&&mario.y<s.y+s.h&&mario.y+mario.h>s.y){
-      let maxH=GY-cloudY-mushroom.capH-20,baseH=40;
-      mushroom.waterAmount+=Math.max(0,Math.min(maxH-mushroom.height,(maxH-baseH)/game.word.en.length*MG));
-      if(mushroom.waterTimer<=0)mushroom.waterTimer=25;
-      burstParts(s.x+s.w/2,s.y+s.h/2);return false;
     }
     return true;
   });
-  // Mushroom growth animation
   mushroom.height+=((mushroom.target-mushroom.height)*.08)*(dt/16);
-  // Water timer (delayed growth after seed lands)
+  if(Math.abs(mushroom.target-mushroom.height)<.4)mushroom.height=mushroom.target;
+  // Water timer: growth lands after the watering animation plays
   if(mushroom.waterTimer>0){
     mushroom.waterTimer-=dt/16;
     if(mushroom.waterTimer<=0){
-      mushroom.target+=mushroom.waterAmount;
+      mushroom.target=Math.min(maxMH(),mushroom.target+mushroom.waterAmount);
       mushroom.waterAmount=0;sMushroom();
+      if(game.pendingClear){game.pendingClear=false;levelClear()}
     }
   }
-  // Hammer timer (delayed shrink after wrong hit)
-  if(mushroom.hammerTimer>0){
-    mushroom.hammerTimer-=dt/16;
-    if(mushroom.hammerTimer<=0){
-      if(mushroom.target<=20){game.playing=false;endGame(false)}
-      else{
-        mushroom.target=Math.max(20,mushroom.target-mushroom.hammerAmount);
-        mushroom.hammerAmount=0;
-      }
-    }
-  }
-  let capTop=GY-mushroom.height-mushroom.capH;
-  // Mushroom cap platform
-  let capL=mushroom.x-mushroom.capW/2,capR=mushroom.x+mushroom.capW/2;
-  if(mario.vy>=0&&mario.y+mario.h>=capTop&&mario.y+mario.h<=capTop+14&&mario.x+mario.w>capL+4&&mario.x<capR-4&&mario.y+mario.h<GY){
-    mario.y=capTop-mario.h;mario.vy=0;mario.onG=true;
-    mario.state=Math.abs(mario.vx)>.3?'run':'idle';
-  }
+  // Hammer animation only — wrong answers cost a life, not mushroom height
+  if(mushroom.hammerTimer>0)mushroom.hammerTimer-=dt/16;
   blocks.forEach(b=>{
     if(b.bVY!==0){b.bY+=b.bVY*(dt/16);b.bVY+=.5*(dt/16);if(b.bY>0){b.bY=0;b.bVY=0}}
     if(b.glow>0)b.glow-=dt;
   });
-  // Cloud goal: Mario headbutts clouds → word complete
-  if(!game.trans&&mario.y<=cloudY&&mario.vy<0){
-    mario.vy=2;mario.y=cloudY+1;onDone();
-  }
 }
 
 function checkBlocks(dt){
-  if(!game.word||game.got.length>=game.word.en.length)return;
-  let expected=game.word.en[game.got.length];
+  if(!game.word||game.got.length>=game.seq.length)return;
+  if(mario.vy>=0)return;
+  let expected=game.seq[game.got.length],mT=mario.y,mC=mario.x+mario.w/2;
+  // Narrow blocks sit close together, so resolve to the single nearest block
+  // instead of a fixed tolerance that would span neighbours.
+  let best=null,bestD=Infinity;
   blocks.forEach(tb=>{
     if(tb.hit)return;
-    let mT=mario.y,mC=mario.x+mario.w/2,bB=tb.y+tb.h,bL=tb.x,bR=tb.x+tb.w;
-    if(mT<=bB&&mT>=bB-22&&mC>=bL-18&&mC<=bR+18&&mario.vy<0){
-      mario.vy=2;
-      if(tb.letter===expected){hitBlock(tb)}
-      else{
-        sError();flyLetter(tb.x+tb.w/2,tb.y,'✗');
-        mushroom.hammerAmount+=40;if(mushroom.hammerTimer<=0)mushroom.hammerTimer=18;
-        mario.cool=200;
-      }
-    }
+    let bB=tb.y+tb.bY+tb.h,bC=tb.x+tb.w/2;
+    if(mT>bB||mT<bB-22)return;
+    let d=Math.abs(mC-bC);
+    if(d>tb.w/2+Math.min(14,tb.w))return;
+    if(d<bestD){bestD=d;best=tb}
   });
+  if(!best)return;
+  mario.vy=2;
+  if(best.letter===expected)hitBlock(best);
+  else wrongBlock(best);
+}
+
+function wrongBlock(b){
+  sError();flyLetter(b.x+b.w/2,b.y,'✗');
+  b.bVY=-3;mario.cool=200;
+  game.err++;
+  // Hammer visual only; the mushroom keeps its height so 10 words always reach the clouds
+  if(mushroom.hammerTimer<=0)mushroom.hammerTimer=18;
+  game.score=Math.max(0,game.score-5);
+  updHUD();
+  if(game.err>=MAX_ERR){game.trans=true;endGame(false)}
 }
 
 function hitBlock(b){
   if(b.hit)return;b.hit=true;b.bVY=-7;
+  if(game.order&&game.order[b.idx])game.order[b.idx].hit=true;
   game.got.push(b.letter);
   flyLetter(b.x+b.w/2,b.y,b.disp);
   burstParts(b.x+b.w/2,b.y);
   coin(b.x+b.w/2,b.y-30);
   game.score+=10;sHit();speak(b.letter);updHUD();updSlots();
   mario.cool=200;
-  // Spawn mushroom seed from block
-  seeds.push({x:b.x+b.w/2-12,y:b.y-24,w:24,h:24,vy:-5,vx:(Math.random()<.5?-1:1)*.8});
-  if(game.got.length===game.word.en.length)setTimeout(onDone,500);
+  if(game.got.length===game.seq.length){game.trans=true;setTimeout(onDone,500)}
 }
 
 function onDone(){
@@ -474,8 +592,18 @@ function onDone(){
   d.innerHTML='<div class="e">'+game.word.en+'</div><div class="z">'+game.word.zh+'</div>';
   el.appendChild(d);setTimeout(()=>d.remove(),1700);
   for(let i=0;i<18;i++)setTimeout(()=>coin(W*.15+Math.random()*W*.7,H*.1+Math.random()*H*.3),i*70);
-  fireworks(W/2,H/2);updHUD();
-  setTimeout(()=>{game.idx++;loadWord()},2400);
+  fireworks(W/2,H/2);
+  // One seed per completed word; total growth over the level reaches the clouds exactly
+  let src=blocks.length?blocks[blocks.length-1]:{x:W/2,y:GY-160,w:BS};
+  seeds.push({x:src.x+src.w/2-12,y:src.y-24,w:24,h:24,vy:-5,vx:(Math.random()<.5?-1:1)*.8,
+              grow:maxMH()/game.total});
+  let isLast=game.idx>=game.total-1;
+  if(isLast)game.pendingClear=true;   // Cutscene starts once the last growth lands
+  updHUD();
+  setTimeout(()=>{
+    if(game.pendingClear||game.cut)return;   // Level over; cutscene takes it from here
+    game.idx++;loadWord();
+  },2400);
 }
 
 function flyLetter(x,y,l){
@@ -511,8 +639,12 @@ function fireworks(cx,cy){
 
 function draw(){
   ctx.clearRect(0,0,W,H);
-  if(game.cloudMode){cloudBg()}else{sky();clouds();hills();ground()}
-  goalCloud();drawBlocks();drawMario();drawCoins();drawMushrooms();drawSeeds();drawParts();
+  let sc=SCENES[game.scene];
+  if(sc==='cloud'){cloudBg();cloudGround()}
+  else if(sc==='night'){nightSky();clouds();nightHills();ground('#3a2a5a','#5b4b8a','#463676')}
+  else{sky();clouds();hills();ground()}
+  // Mushroom draws under the letter row so letters stay readable when it grows past them
+  goalCloud();drawMushrooms();drawBlocks();drawSeeds();drawCoins();drawMario();drawParts();
 }
 
 function sky(){
@@ -570,6 +702,41 @@ function goalCloud(){
   ctx.beginPath();ctx.ellipse(W/2,gy-4,W*.35,6,0,0,Math.PI*2);ctx.fill();
 }
 
+function nightSky(){
+  let g=ctx.createLinearGradient(0,0,0,GY);
+  g.addColorStop(0,'#0b1026');g.addColorStop(.55,'#1b2350');g.addColorStop(1,'#3b3f75');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,GY);
+  // Stars (deterministic positions, twinkling brightness)
+  for(let i=0;i<48;i++){
+    let sx=(i*173)%W,sy=(i*97)%Math.max(1,GY*.7),a=.35+.45*Math.abs(Math.sin(Date.now()*.001+i));
+    ctx.fillStyle='rgba(255,255,255,'+a+')';
+    ctx.fillRect(sx,sy,2,2);
+  }
+  // Moon
+  ctx.fillStyle='rgba(255,250,220,.95)';
+  ctx.beginPath();ctx.arc(W*.82,Math.min(90,GY*.18),26,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.12)';
+  ctx.beginPath();ctx.arc(W*.82,Math.min(90,GY*.18),40,0,Math.PI*2);ctx.fill();
+}
+
+function nightHills(){
+  ctx.fillStyle='#1d2547';
+  [[90,90],[340,110],[590,80],[810,95]].forEach(h=>{ctx.beginPath();ctx.arc(h[0],GY,h[1],Math.PI,0);ctx.fill()});
+  ctx.fillStyle='#151b36';
+  [[80,50],[330,65],[580,48],[800,55]].forEach(h=>{ctx.beginPath();ctx.arc(h[0],GY,h[1],Math.PI,0);ctx.fill()});
+}
+
+// Cloud level stands on a solid cloud bank instead of dirt
+function cloudGround(){
+  ctx.fillStyle='rgba(232,242,255,.95)';ctx.fillRect(0,GY,W,H-GY);
+  ctx.fillStyle='#fff';
+  for(let i=0;i<Math.ceil(W/60)+1;i++){
+    ctx.beginPath();ctx.arc(i*60,GY+4,34,Math.PI,0);ctx.fill();
+  }
+  ctx.fillStyle='rgba(150,180,220,.25)';
+  for(let i=20;i<H-GY;i+=26){ctx.fillRect(0,GY+i,W,1)}
+}
+
 function hills(){
   ctx.fillStyle='#049c04';
   [[90,90],[340,110],[590,80],[810,95]].forEach(h=>{ctx.beginPath();ctx.arc(h[0],GY,h[1],Math.PI,0);ctx.fill()});
@@ -577,10 +744,10 @@ function hills(){
   [[80,50],[330,65],[580,48],[800,55]].forEach(h=>{ctx.beginPath();ctx.arc(h[0],GY,h[1],Math.PI,0);ctx.fill()});
 }
 
-function ground(){
-  ctx.fillStyle='#8B4513';ctx.fillRect(0,GY,W,H-GY);
+function ground(dirt,g1,g2){
+  ctx.fillStyle=dirt||'#8B4513';ctx.fillRect(0,GY,W,H-GY);
   let g=ctx.createLinearGradient(0,GY,0,GY+14);
-  g.addColorStop(0,'#4ade80');g.addColorStop(1,'#22c55e');
+  g.addColorStop(0,g1||'#4ade80');g.addColorStop(1,g2||'#22c55e');
   ctx.fillStyle=g;ctx.fillRect(0,GY,W,14);
   ctx.strokeStyle='rgba(101,67,33,.3)';ctx.lineWidth=1;
   for(let i=0;i<W;i+=36){ctx.beginPath();ctx.moveTo(i,GY+14);ctx.lineTo(i,H);ctx.stroke()}
@@ -594,7 +761,7 @@ function drawBlocks(){
     // Hint glow
     if(b.glow>0){
       let a=.5+.5*Math.sin(Date.now()*.01);
-      ctx.shadowColor=`rgba(251,208,0,${a})`;ctx.shadowBlur=20+b.glow*.5;
+      ctx.shadowColor=`rgba(251,208,0,${a})`;ctx.shadowBlur=20+Math.min(30,b.glow*.025);
       ctx.strokeStyle=`rgba(251,208,0,${a*.7})`;ctx.lineWidth=4;
       ctx.strokeRect(bx-4,by-4,b.w+8,b.h+8);
       ctx.shadowBlur=0;
@@ -624,10 +791,11 @@ function drawBlocks(){
 }
 
 function drawMario(){
+  if(mario.alpha<=0)return;
   let mx=mario.x,my=mario.y,w=mario.w,h=mario.h;
   ctx.save();ctx.translate(mx+w/2,my+h/2);ctx.scale(mario.face,1);
   let fl=mario.cool>0&&Math.floor(mario.cool/30)%2===0;
-  if(fl)ctx.globalAlpha=.55;
+  ctx.globalAlpha=mario.alpha*(fl?.55:1);
   let bob=mario.onG&&Math.abs(mario.vx)>.3?Math.sin(Date.now()*.01)*2:0;
   ctx.translate(0,bob);
   let hH=h*.17,heH=h*.24,bH=h*.36,lH=h*.23,headY=-h/2+hH,bodY=headY+heH,legY=bodY+bH;
@@ -668,6 +836,9 @@ function drawParts(){
 function drawMushrooms(){
   let mx=mushroom.x,capTop=GY-mushroom.height-mushroom.capH,stemBot=GY,stemTop=GY-mushroom.height;
   ctx.save();
+  // Go translucent where the mushroom crosses the letter row, so blocks read clearly
+  let band=rowBand();
+  if(band&&capTop<band.bot+8&&stemTop<band.bot)ctx.globalAlpha=.45;
   // Stem
   ctx.fillStyle='#f5e6d0';ctx.fillRect(mx-mushroom.stemW/2,stemTop,mushroom.stemW,mushroom.height);
   ctx.fillStyle='#d4a574';ctx.fillRect(mx-mushroom.stemW/4,stemTop,mushroom.stemW/2,mushroom.height);

@@ -1,53 +1,108 @@
 # 超级玛丽 · 顶字母学单词
 
-Super Mario–style English learning game where Mario headbutts letter blocks to collect letters, grows a magic mushroom to reach the clouds, and progresses through randomized word sessions.
+一个超级玛丽风格的英语单词学习游戏。控制玛丽从下往上顶字母砖块，按正确顺序拼出单词；顶对会掉落蘑菇种子让蘑菇长高，顶错会被锤子砸矮蘑菇。纯 HTML5 Canvas 单文件实现，无任何依赖。
 
-## How to Play
+## 游戏规则
 
-1. Click **开始冒险** on the menu
-2. Control Mario with **Arrow keys / WASD** (keyboard) or **on-screen ◀ ▶ buttons** (touch)
-3. **Jump** with **Space / Up / W** or tap the **JUMP** button
-4. Headbutt letter blocks in the **correct order** to spell the word shown at top
-5. Each correct letter spawns a seed → **watering animation** → mushroom grows
-6. Wrong letter → **hammer animation** → mushroom shrinks (too many errors = game over)
-7. When the mushroom is tall enough, **jump onto its cap**, then **headbutt the clouds** at the top to complete the word
-8. Review your progress in the **right-side word list** (✅ correct / ❌ failed)
+### 目标
 
-## Features
+按正确顺序顶字母砖块，拼出屏幕顶部提示的中文所对应的英文单词。每完成一个单词蘑菇长高一截，一关的 10 个单词全部拼对后蘑菇正好长到云端，玛丽爬上云层过关。
 
-- **131 English words** with Chinese translations (food, animals, places, jobs, etc.)
-- **Pixel-art Mario** with run/jump/idle animations and scrolling background
-- **Mushroom growth** system — grows with correct letters, shrinks on mistakes
-- **Goal clouds** — reach the sky to complete each word
-- **Sound effects** via Web Audio API and **voice pronunciation** via Web Speech API
-- **Touch + Keyboard** controls with multi-touch virtual gamepad
-- **Screen adaptive** — fills any viewport (mobile / tablet / desktop)
-- **Full-screen menu and result panel** with score tracking
+### 开局
 
-## Controls
+点击「开始冒险」后浏览器进入全屏。单词按词库顺序选取，不随机：第 1 关取第 1–10 个词，第 2 关取第 11–20 个词，以此类推，共 13 关（最后一关 11 个词，把尾数并入）。每关开始时会自动朗读一遍英文单词，HUD 顶部只显示中文释义。
 
-| Action | Keyboard | Touch |
-|--------|----------|-------|
-| Move left | `←` / `A` | ◀ button |
-| Move right | `→` / `D` | ▶ button |
-| Jump | `↑` / `W` / `Space` | JUMP button (hold for higher jump) |
+### 字母砖块
 
-## File Structure
+单词的每个字母生成一块红砖，**顺序被打乱**，始终横向居中排成**一行**。字母多时砖块自动缩窄以容纳在同一行内（最窄 14px），不折行。空格与标点（`.` `!` 等）不生成砖块，会在底部槽位直接显示。
+
+蘑菇绘制在砖块**下层**，且长高穿过字母行时会半透明化，因此不会挡住字母。
+
+### 拼词
+
+跳跃从下往上顶砖（必须处于上升状态、头顶撞到砖块底部才算）：
+
+- **顶对**（等于当前待拼位置的字母）→ 砖块变灰打勾、字母飞出、+10 分、朗读该字母、底部槽位填绿
+- **顶错** → 错误音效、飞出 ✗、蘑菇处冒出锤击特效、扣 5 分、损失一颗 ❤、玛丽进入 200ms 闪烁冷却
+
+顶砖不能跳步，必须严格按单词的字母顺序来。
+
+### 蘑菇成长
+
+一个单词**完整拼对**后，会从砖块弹出一颗蘑菇种子；种子落地（或被玛丽在半空接住）触发浇水动画，蘑菇随之长高 1/10 云高。
+
+顶错**不会**让蘑菇变矮，只消耗生命，所以一关 10 个词拼完蘑菇必定刚好到达云端。
+
+游戏过程中伞盖**不可站立**：字母占满整行宽度，站上伞盖会让玛丽的头高过砖块底部，那些字母就再也顶不到了。爬升由过场动画负责。
+
+### 完成一个单词
+
+拼满所有字母后，全屏展示英文 + 中文、+50 分、金币与烟花庆祝、右侧词表记 ✅，2.4 秒后进入下一个单词。
+
+### 过关
+
+本关最后一个单词的浇水完成、蘑菇触到云端时，播放**自动过场动画**：玛丽走到菇柄下 → 顺着菇柄向上攀爬 → 跃入云层淡出 → 显示「第 N 关 通过!」→ 进入下一关。玩家在过场中无需操作。
+
+### 失败
+
+每关有 5 颗 ❤，顶错一次扣一颗；扣光即本局结束，当前词记 ❌。生命每关开始时重置。
+
+### 计分
+
+- 每个正确字母：+10 分
+- 每完成一个单词：+50 分
+- 顶错一次：−5 分（不低于 0）
+
+分数跨关卡累计，13 关全部通过后显示总成绩。
+
+## 操作方式
+
+| 动作 | 键盘 | 触屏 |
+|------|------|------|
+| 向左移动 | `←` / `A` | ◀ 按钮 |
+| 向右移动 | `→` / `D` | ▶ 按钮 |
+| 跳跃 | `↑` / `W` / `空格`（长按跳更高） | JUMP 按钮 |
+| 发音提示 | — | 🔊 按钮（朗读整词 + 高亮正确砖块） |
+| 横屏 | — | 🔄 按钮（直接请求横屏 + 全屏，不做朝向判断） |
+
+## 界面元素
+
+- **左上**：当前分数，下方为剩余生命 ❤（本关剩余错误次数）
+- **正上**：本关单词的中文释义
+- **右上**：进度 `第N关 n/10`、横屏按钮、发音提示按钮
+- **底部**：字母槽位（已拼出为绿色，当前待拼位置为黄色脉冲，空格留空、标点灰显）
+- **右侧**：本关单词列表（✅ 已完成 / ❌ 未完成）
+
+## 功能特性
+
+- **131 个英语单词**及中文释义，分 13 关顺序推进
+- **像素风玛丽**，含站立 / 奔跑 / 跳跃动画
+- **三套场景**随关卡循环：草地 → 云层 → 夜空（含星空与月亮）
+- **蘑菇成长系统**：每拼对一词长高一截，绘制在字母下层且穿过字母行时半透明
+- **过关过场动画**：玛丽自动攀爬菇柄跃入云端
+- **音效与语音**：Web Audio API 生成复古音效，Web Speech API 朗读单词与字母
+- **触屏 + 键盘**双操作，支持多点触控虚拟手柄
+- **自适应屏幕**，长单词自动缩窄砖块保持单行，旋转 / 缩放时保留当前拼词进度
+- 开始时自动进入浏览器全屏，含全屏菜单与结算面板
+
+## 文件结构
 
 ```
-index.html    — Single-file game (Canvas rendering, inline CSS/JS)
-README.md     — This file
+index.html    — 单文件游戏（Canvas 渲染，内联 CSS/JS）
+README.md     — 本文件
 ```
 
-## Technical
+## 技术实现
 
-- Pure **HTML5 Canvas** rendering, no dependencies
-- Inline CSS with `clamp()` + viewport units for responsive layout
-- Web Audio API for retro sound effects (square/sine/triangle oscillators)
-- Web Speech API for English word/letter pronunciation
-- Game loop via `requestAnimationFrame` with delta-time physics
-- Word pool stored as a `const` array of `{en, zh}` objects
+- 纯 **HTML5 Canvas** 渲染，零依赖
+- 内联 CSS，使用 `clamp()` + 视口单位实现响应式布局
+- **Web Audio API** 生成复古音效（square / sine / triangle / sawtooth 振荡器）
+- **Web Speech API** 实现英文单词与字母发音
+- 通过 `requestAnimationFrame` 驱动主循环，物理计算基于 delta-time
+- 词库以 `{en, zh}` 对象数组形式存放在 `const WORDS` 中
+- 关卡参数集中在 `WPL`（每关词数）、`MAX_ERR`（容错次数）、`SCENES`（场景列表）
+- 过场动画为状态机（`game.cut` 阶段 1–5），与玩家操作循环分离
 
-## Word Sources
+## 词库来源
 
-Words extracted from `英语单词记忆_新.docx`, covering common English vocabulary with Chinese meanings suitable for elementary/middle school learners.
+单词提取自 `英语单词记忆_新.docx`，覆盖适合中小学阶段的常用英语词汇及中文释义。
