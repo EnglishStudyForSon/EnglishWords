@@ -16,7 +16,23 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 #menu button{width:240px;height:60px;font-size:24px;font-weight:bold;color:#fff;border:4px solid #fff;border-radius:10px;cursor:pointer;background:linear-gradient(180deg,#e52521,#b71c1c);text-shadow:2px 2px 0 #000;transition:.15s}
 #menu button:active{transform:scale(.93)}
 #menu button.sec{width:190px;height:46px;font-size:18px;margin-top:14px;border-width:3px;background:linear-gradient(180deg,#3b82f6,#1d4ed8)}
+#menu button.sec#btnCont{display:none;background:linear-gradient(180deg,#4ade80,#16a34a)}
+#menu button.sec#btnCont.on{display:block}
 #menuInfo{margin-top:18px;color:#cfe3ff;font-size:14px;text-shadow:1px 1px 0 #000;text-align:center;line-height:1.7}
+#menuBest{margin-top:6px;color:#fbd000;font-size:13px;text-shadow:1px 1px 0 #000;text-align:center}
+
+#btnSkip{position:absolute;bottom:clamp(10px,3vh,22px);right:clamp(10px,2.5vw,22px);z-index:145;display:none;padding:9px 16px;font-size:clamp(12px,2.2vh,16px);font-weight:bold;color:#fff;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.45);border-radius:20px;cursor:pointer;touch-action:none}
+#btnSkip.on{display:block}
+#btnSkip:active{background:rgba(251,208,0,.35);border-color:#fbd000}
+
+#pause{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,.8);z-index:160}
+#pause.on{display:flex}
+.pBox{width:min(340px,88%);padding:24px 20px;background:#1b2340;border:3px solid #fbd000;border-radius:14px;text-align:center}
+.pBox h2{font-size:26px;color:#fbd000;text-shadow:2px 2px 0 #000;margin-bottom:12px}
+.pStat{color:#cbd5e1;font-size:14px;line-height:1.9;margin-bottom:18px}
+.pBox button{width:100%;padding:13px;font-size:17px;font-weight:bold;border:none;border-radius:9px;color:#fff;cursor:pointer;margin-top:9px}
+.pBox .pr{background:linear-gradient(180deg,#4ade80,#22c55e)}
+.pBox .pm{background:linear-gradient(180deg,#6b7280,#4b5563)}
 
 #settings{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,.82);z-index:150;padding:12px}
 #settings.on{display:flex}
@@ -28,6 +44,11 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 .sRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
 .sRow.col{flex-direction:column;align-items:stretch;border-bottom:none}
 .sRow label{color:#fff;font-size:15px}
+.sRow label small{color:#94a3b8;font-size:11px}
+#weakN{color:#fbd000;font-size:12px}
+.wd .ms{margin-left:auto;font-size:11px;color:#94a3b8;flex:0 0 auto}
+.wd .ms.bad{color:#ff6b6b}
+.wd .ms.good{color:#4ade80}
 .sLabelRow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 #selCount{color:#fbd000;font-size:13px}
 .segs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
@@ -90,6 +111,9 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 .hw{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(36px,8vh,64px);font-weight:bold;color:#fff;text-shadow:4px 4px 0 #000,0 0 30px rgba(251,208,0,.5);pointer-events:none;z-index:130;animation:hwFade 1.2s ease forwards}
 @keyframes hwFade{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}30%{transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-60%) scale(.8)}}
 
+.combo{position:absolute;top:22%;left:50%;transform:translateX(-50%);font-size:clamp(22px,4.5vh,38px);font-weight:bold;color:#fbd000;text-shadow:3px 3px 0 #e52521,5px 5px 0 #000;pointer-events:none;z-index:135;animation:cbPop 1s ease forwards}
+@keyframes cbPop{0%{opacity:0;transform:translateX(-50%) scale(.4) rotate(-8deg)}25%{opacity:1;transform:translateX(-50%) scale(1.25) rotate(3deg)}40%{transform:translateX(-50%) scale(1) rotate(0)}100%{opacity:0;transform:translateX(-50%) translateY(-30px) scale(.85)}}
+
 .banner{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;z-index:140;animation:bnFade 2.6s ease forwards}
 .banner .t{font-size:clamp(34px,7vh,62px);font-weight:bold;color:#fbd000;text-shadow:4px 4px 0 #e52521,8px 8px 0 #000}
 .banner .s2{font-size:clamp(15px,2.6vh,24px);color:#fff;margin-top:12px;text-shadow:2px 2px 0 #000}
@@ -104,6 +128,16 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
 #result h2{font-size:48px;color:#fbd000;text-shadow:4px 4px 0 #e52521;margin-bottom:20px}
 #result .st{font-size:20px;color:#fff;text-align:center;line-height:2.2;margin-bottom:30px}
 #result .st span{color:#4ade80;font-weight:bold}
+#result .st em{color:#fbd000;font-style:normal;font-size:15px}
+#result .st .stars{font-size:34px;color:#fbd000;line-height:1.2;margin-bottom:6px;text-shadow:2px 2px 0 #a01010}
+#rList{width:min(460px,90%);max-height:34vh;overflow-y:auto;margin:0 0 18px;padding:8px;background:rgba(255,255,255,.06);border-radius:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+#rList .rw{font-size:13px;padding:5px 7px;border-radius:5px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#e2e8f0}
+#rList .rw:active{background:rgba(255,255,255,.12)}
+#rList .rw.ok{color:#4ade80}
+#rList .rw.warn{color:#fbd000}
+#rList .rw.bad{color:#ff6b6b}
+#rList .rw i{color:#94a3b8;font-style:normal}
+#rList .rw b{color:#94a3b8;font-weight:normal;font-size:11px}
 #result button{padding:14px 36px;font-size:20px;font-weight:bold;color:#fff;border:none;border-radius:10px;cursor:pointer;margin:8px;transition:.15s}
 #result button:active{transform:scale(.93)}
 #result .r{background:linear-gradient(180deg,#4ade80,#22c55e)}
@@ -123,8 +157,10 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
     <h1>超级玛丽</h1>
     <p>顶字母 · 学单词</p>
     <button onclick="startGame()">开始冒险</button>
+    <button class="sec" id="btnCont" onclick="contGame()">继续冒险</button>
     <button class="sec" onclick="openSet()">⚙ 设置</button>
     <div id="menuInfo"></div>
+    <div id="menuBest"></div>
   </div>
 
   <div id="settings">
@@ -134,6 +170,10 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
         <button class="sX" onclick="closeSet()">✕</button>
       </div>
       <div class="sBody">
+        <div class="sRow">
+          <label>提示方式<br><small>听音模式隐藏中文，靠发音拼写</small></label>
+          <div class="segs" id="setMode"></div>
+        </div>
         <div class="sRow">
           <label>每关单词数</label>
           <div class="segs" id="setWPL"></div>
@@ -145,6 +185,18 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
         <div class="sRow">
           <label>字母顺序打乱</label>
           <div class="segs" id="setShuf"></div>
+        </div>
+        <div class="sRow">
+          <label>错词补考<br><small>本关结束后重考错过的词</small></label>
+          <div class="segs" id="setRetry"></div>
+        </div>
+        <div class="sRow">
+          <label>只练错词 <span id="weakN"></span></label>
+          <div class="segs" id="setWeak"></div>
+        </div>
+        <div class="sRow">
+          <label>学习记录</label>
+          <div class="mini"><button onclick="clearStats()">清除记录</button></div>
         </div>
         <div class="sRow col">
           <div class="sLabelRow">
@@ -177,22 +229,34 @@ body{background:#000;overflow:hidden;font-family:Arial,sans-serif;touch-action:n
       <div>
         <div class="s" id="score">0</div>
         <div class="p" id="lives">❤❤❤❤❤</div>
+        <div class="p" id="comboN"></div>
       </div>
-      <div class="hint"><span class="l">拼出:</span><br><span class="w" id="hintW">苹果</span></div>
+      <div class="hint"><span class="l" id="hintL">拼出:</span><br><span class="w" id="hintW">苹果</span></div>
       <div style="display:flex;align-items:center;gap:4px">
         <div class="p" id="prog">1-1/10</div>
         <button id="btnRotate" class="hb" title="旋转屏幕">🔄</button>
         <button id="btnHint" class="hb">🔊</button>
+        <button id="btnPause" class="hb" title="暂停">⏸</button>
       </div>
     </div>
     <div id="slots"></div>
     <div id="wordList"></div>
     <div id="fx"></div>
+    <button id="btnSkip" onclick="skipCut()">跳过 ▶▶</button>
+    <div id="pause">
+      <div class="pBox">
+        <h2>已暂停</h2>
+        <div class="pStat" id="pStat"></div>
+        <button class="pr" onclick="setPause(false)">继续游戏</button>
+        <button class="pm" onclick="quitToMenu()">返回菜单</button>
+      </div>
+    </div>
   </div>
 
   <div id="result">
     <h2 id="rTitle">通关!</h2>
     <div class="st" id="rStats"></div>
+    <div id="rList"></div>
     <div>
       <button class="r" onclick="startGame()">再来一次</button>
       <button class="m" onclick="showMenu()">返回菜单</button>
@@ -263,9 +327,18 @@ const WORDS = [
 ];
 
 const G=0.52,JF=-13,MS=4,FR=0.82;
+const GUP=0.82,GDN=1.25;   // Gravity scale rising vs falling — snappier jump arc
+const COYOTE=110;          // ms after leaving ground where a jump still counts
+const JBUF=140;            // ms a jump press is remembered before landing
 const SCENES=['grass','cloud','night'];
 const SKEY='mario-words-settings';
-const DEF={wpl:10,maxErr:5,shuffle:true,words:null};   // words:null = every word enabled
+const TKEY='mario-words-stats';
+const PKEY='mario-words-progress';
+// retry: replay a level's missed words at the end of that level
+// weakOnly: restrict the pool to words you've been getting wrong
+// mode: 'zh' show the Chinese meaning | 'listen' hide it and rely on audio
+const DEF={wpl:10,maxErr:5,shuffle:true,words:null,retry:true,weakOnly:false,mode:'zh'};
+const MODES=['zh','listen'];
 
 let S={...DEF};
 let pool=[];        // Words actually in play, in WORDS order
@@ -278,6 +351,9 @@ function loadSet(){
       if([5,10,15,20].includes(o.wpl))S.wpl=o.wpl;
       if([3,5,10,999].includes(o.maxErr))S.maxErr=o.maxErr;
       if(typeof o.shuffle==='boolean')S.shuffle=o.shuffle;
+      if(typeof o.retry==='boolean')S.retry=o.retry;
+      if(typeof o.weakOnly==='boolean')S.weakOnly=o.weakOnly;
+      if(MODES.includes(o.mode))S.mode=o.mode;
       // Keep only keys that still exist, so editing WORDS can't corrupt a saved set
       if(Array.isArray(o.words)){
         let valid=o.words.filter(en=>WORDS.some(w=>w.en===en));
@@ -290,8 +366,63 @@ function loadSet(){
 function saveSet(){
   try{localStorage.setItem(SKEY,JSON.stringify(S))}catch(e){}
 }
+
+// ---------- Per-word mastery + run progress ----------
+// STATS: {en: {ok, no, t}}  ok/no = times right/wrong, t = last-seen timestamp
+// PROG:  {best: {sig: score}, lv: {sig: furthestLevelReached}}
+// sig keys progress to the current pool+wpl, so changing the word range
+// can't resurrect a "continue" that no longer maps onto real levels.
+let STATS={},PROG={best:{},lv:{}};
+
+function loadStats(){
+  try{
+    let a=JSON.parse(localStorage.getItem(TKEY)||'{}');
+    if(a&&typeof a==='object')STATS=a;
+    let b=JSON.parse(localStorage.getItem(PKEY)||'{}');
+    if(b&&typeof b==='object'){PROG.best=b.best||{};PROG.lv=b.lv||{}}
+  }catch(e){STATS={};PROG={best:{},lv:{}}}
+}
+function saveStats(){
+  try{
+    localStorage.setItem(TKEY,JSON.stringify(STATS));
+    localStorage.setItem(PKEY,JSON.stringify(PROG));
+  }catch(e){}
+}
+function sig(){return pool.length+'x'+wpl()}
+function bestScore(){return PROG.best[sig()]||0}
+function furthest(){return Math.min(PROG.lv[sig()]||0,totalLv())}
+
+function noteWord(en,ok){
+  let s=STATS[en]||(STATS[en]={ok:0,no:0,t:0});
+  if(ok)s.ok++;else s.no++;
+  s.t=Date.now();
+}
+// Called at each level boundary and at run end so a mid-run quit still keeps progress
+function recordProg(){
+  let k=sig();
+  if(game.score>(PROG.best[k]||0))PROG.best[k]=game.score;
+  let reached=game.level+1;
+  if(reached>(PROG.lv[k]||0))PROG.lv[k]=Math.min(reached,totalLv());
+  saveStats();
+}
+function masteryOf(en){
+  let s=STATS[en];
+  if(!s||!(s.ok+s.no))return null;
+  return s.ok/(s.ok+s.no);
+}
+function weakWords(){
+  return WORDS.filter(w=>{let s=STATS[w.en];return s&&s.no>0&&(!s.ok||s.no>=s.ok)});
+}
 function isOn(en){return !S.words||S.words.includes(en)}
-function buildPool(){pool=WORDS.filter(w=>isOn(w.en))}
+function buildPool(){
+  pool=WORDS.filter(w=>isOn(w.en));
+  // "Weak words only" narrows the selection further, but never to nothing —
+  // with no mistakes on record it silently falls back to the full selection.
+  if(S.weakOnly){
+    let weak=pool.filter(w=>{let s=STATS[w.en];return s&&s.no>0&&(!s.ok||s.no>=s.ok)});
+    if(weak.length)pool=weak;
+  }
+}
 
 function wpl(){return S.wpl}
 function maxErr(){return S.maxErr}
@@ -314,9 +445,24 @@ let game={
   words:[],idx:0,score:0,total:10,word:null,seq:'',got:[],done:0,
   level:0,scene:0,err:0,
   playing:false,trans:false,anim:null,wordLog:[],order:null,
-  cut:0,cutT:0,pendingClear:false
+  cut:0,cutT:0,pendingClear:false,
+  paused:false,timers:[],
+  missed:[],retrying:false,runLog:[],round:0,
+  combo:0,bestCombo:0
 };
-let mario={x:0,y:0,vx:0,vy:0,w:36,h:48,onG:true,face:1,state:'idle',jT:0,cool:0,alpha:1};
+
+// Frame-driven delay. Unlike setTimeout these freeze while paused, so pausing
+// mid-celebration can't let the next word load behind the overlay.
+function later(ms,fn){game.timers.push({ms,fn})}
+function runTimers(dt){
+  if(!game.timers.length)return;
+  let due=[];
+  game.timers=game.timers.filter(t=>{t.ms-=dt;if(t.ms<=0){due.push(t.fn);return false}return true});
+  due.forEach(f=>f());
+}
+function clearTimers(){game.timers=[]}
+let mario={x:0,y:0,vx:0,vy:0,w:36,h:48,onG:true,face:1,state:'idle',jT:0,cool:0,alpha:1,
+           coyote:0,buf:0};
 let blocks=[],parts=[],coins=[],seeds=[];
 let mushroom={height:0,target:0,x:0,stemW:28,capW:64,capH:22,waterTimer:0,waterAmount:0,hammerTimer:0};
 let aCtx=null;
@@ -349,12 +495,15 @@ function speak(t,lang='en-US',rate=.85){
 }
 
 
-function init(){
+function init(startLv){
   if(game.anim){cancelAnimationFrame(game.anim);game.anim=null}
   document.getElementById('result').style.display='none';
   c=document.getElementById('c');ctx=c.getContext('2d');
   setupTouch();
-  game.score=0;game.done=0;game.level=0;
+  game.score=0;game.done=0;game.runLog=[];game.paused=false;
+  game.combo=0;game.bestCombo=0;
+  document.getElementById('pause').classList.remove('on');
+  game.level=Math.max(0,Math.min(startLv||0,totalLv()-1));
   resize();
   document.getElementById('game').style.display='block';
   document.getElementById('menu').style.display='none';
@@ -369,7 +518,9 @@ function loadLevel(){
   game.total=game.words.length;
   game.idx=0;game.err=0;game.wordLog=[];game.got=[];game.order=null;
   game.playing=true;game.trans=false;game.cut=0;game.cutT=0;game.pendingClear=false;
+  game.missed=[];game.retrying=false;game.wordErr=0;game.round++;game.combo=0;
   game.scene=lv%SCENES.length;
+  clearTimers();showSkip(false);
   mushroom.height=0;mushroom.target=0;mushroom.waterTimer=0;mushroom.waterAmount=0;
   mushroom.hammerTimer=0;
   mario.alpha=1;
@@ -393,15 +544,19 @@ function resize(){
 }
 
 function loadWord(){
-  if(game.idx>=game.total){levelClear();return}
+  if(game.idx>=game.total){game.retrying?levelClear():afterMainRound();return}
   game.word=game.words[game.idx];game.seq=seqOf(game.word.en);
-  game.got=[];game.trans=false;game.order=null;
+  game.got=[];game.trans=false;game.order=null;game.wordErr=0;
   posBlocks();updHUD();updSlots();
   let b=blocks[0];
   mario.x=b?Math.max(20,b.x-BS):W/2-BS;mario.y=GY-mario.h;
   mario.vx=0;mario.vy=0;mario.onG=true;mario.state='idle';mario.face=1;mario.cool=0;
   parts=[];coins=[];seeds=[];
-  speak(game.word.en,'en-US',.7);
+  // Listen mode says it slower and twice, since the audio is the only clue
+  speak(game.word.en,'en-US',S.mode==='listen'?.55:.7);
+  if(S.mode==='listen')later(1600,()=>{
+    if(game.playing&&game.word&&game.got.length===0)speak(game.word.en,'en-US',.55);
+  });
 }
 
 // Lay out one block per spellable letter. Wide words wrap to a second reachable row.
@@ -434,11 +589,20 @@ function rowBand(){
 
 function updHUD(){
   document.getElementById('score').textContent=game.score;
-  document.getElementById('hintW').textContent=game.word?game.word.zh:'';
-  document.getElementById('prog').textContent='第'+(game.level+1)+'关 '+Math.min(game.idx+1,game.total)+'/'+game.total;
+  // Listen mode withholds the Chinese meaning until the word is finished
+  let solved=game.word&&game.got.length>=game.seq.length;
+  let hide=S.mode==='listen'&&!solved;
+  document.getElementById('hintL').textContent=hide?'听音拼写:':'拼出:';
+  document.getElementById('hintW').textContent=
+    !game.word?'':hide?'🔊 点击喇叭重听':game.word.zh;
+  document.getElementById('prog').textContent=
+    (game.retrying?'补考 ':'第'+(game.level+1)+'关 ')+Math.min(game.idx+1,game.total)+'/'+game.total;
   let me=maxErr();
   document.getElementById('lives').textContent=
     me>=999?'∞':'❤'.repeat(Math.max(0,me-game.err))+'♡'.repeat(Math.min(me,game.err));
+  let cn=document.getElementById('comboN'),mult=Math.min(5,1+Math.floor(game.combo/5));
+  cn.textContent=game.combo>=5?'x'+mult+' 连击 '+game.combo:'';
+  cn.style.color=game.combo>=25?'#ff6bff':game.combo>=15?'#fbd000':'#4ade80';
 }
 
 function updSlots(){
@@ -455,6 +619,13 @@ function updSlots(){
     else{d.textContent=ch;d.classList.add('fixed')}
     el.appendChild(d);
   });
+}
+
+// Whole-run log, kept across levels so the result screen can show everything
+function logRun(w,s){
+  let e=game.runLog.find(x=>x.en===w.en);
+  if(e){if(s==='ok'&&e.s!=='ok')e.s=s;else if(s==='fail')e.s='fail';return}
+  game.runLog.push({en:w.en,zh:w.zh,s,lv:game.level+1});
 }
 
 function updWordList(){
@@ -486,6 +657,20 @@ function levelClear(){
   game.trans=true;game.cut=1;game.cutT=0;
   mushroom.target=maxMH();
   sLevel();
+  showSkip(true);
+}
+
+// Jump straight to the end of the cutscene (stage 5 handles level advance)
+function skipCut(){
+  if(!game.cut||game.cut>=5)return;
+  try{window.speechSynthesis.cancel()}catch(e){}
+  mushroom.height=mushroom.target=maxMH();
+  mario.alpha=0;
+  game.cut=5;game.cutT=2100;   // land just before stage 5's 2200ms handoff
+}
+function showSkip(on){
+  let b=document.getElementById('btnSkip');
+  if(b)b.classList.toggle('on',on&&!!game.cut);
 }
 
 function updateCut(dt){
@@ -513,11 +698,13 @@ function updateCut(dt){
     if(mario.alpha<=0){
       game.cut=5;game.cutT=0;
       let last=game.level>=totalLv()-1;
-      if(last)banner('全部通关!','131 个单词全部完成');
+      if(last)banner('全部通关!',pool.length+' 个单词全部完成');
       else banner('第 '+(game.level+1)+' 关 通过!','爬上云端 · 进入第 '+(game.level+2)+' 关');
     }
   }else if(game.cut===5){
+    showSkip(false);
     if(game.cutT>2200){
+      recordProg();   // Persist here so quitting later never loses a cleared level
       if(game.level>=totalLv()-1){game.cut=0;endGame(true)}
       else{game.level++;game.cut=0;loadLevel()}
     }
@@ -525,19 +712,49 @@ function updateCut(dt){
 }
 
 function endGame(win){
-  game.playing=false;game.cut=0;
-  if(!win&&game.word)game.wordLog.push({en:game.word.en,zh:game.word.zh,s:'fail'});
+  game.playing=false;game.cut=0;showSkip(false);
+  if(!win&&game.word){
+    game.wordLog.push({en:game.word.en,zh:game.word.zh,s:'fail'});
+    noteWord(game.word.en,false);
+    logRun(game.word,'fail');
+  }
   updWordList();
+  let prevBest=bestScore();
+  recordProg();
+  let stars=win?(game.err===0?3:game.done>=pool.length*.9?2:1):0;
   document.getElementById('rTitle').textContent=win?'全部通关!':'继续加油!';
   document.getElementById('rStats').innerHTML=
+    (win?'<div class="stars">'+'★'.repeat(stars)+'☆'.repeat(3-stars)+'</div>':'')+
     '到达: <span>第 '+(game.level+1)+'/'+totalLv()+' 关</span><br>得分: <span>'+game.score+
-    '</span><br>完成单词: <span>'+game.done+'</span> / '+pool.length+' 个';
+    '</span>'+(game.score>prevBest&&prevBest>0?' <em>新纪录!</em>':'')+
+    '<br>完成单词: <span>'+game.done+'</span> / '+pool.length+' 个'+
+    (game.bestCombo>=5?'<br>最高连击: <span>'+game.bestCombo+'</span>':'');
+  renderResultList();
   setTimeout(()=>{document.getElementById('result').style.display='flex'},400);
 }
 
-function startGame(){
+// Full-run word list on the result screen; tap any word to hear it again
+function renderResultList(){
+  let el=document.getElementById('rList');if(!el)return;
+  el.innerHTML='';
+  if(!game.runLog.length){el.textContent='—';return}
+  game.runLog.forEach(e=>{
+    let d=document.createElement('div');
+    d.className='rw '+(e.s==='ok'?'ok':e.s==='okErr'?'warn':'bad');
+    let m=masteryOf(e.en),pct=m===null?'':' <b>'+Math.round(m*100)+'%</b>';
+    d.innerHTML=(e.s==='ok'?'✅':e.s==='okErr'?'⚠️':'❌')+' '+e.en+' <i>'+e.zh+'</i>'+pct;
+    d.onclick=()=>speak(e.en);
+    el.appendChild(d);
+  });
+}
+
+function startGame(lv){
   if(pool.length<wpl()){openSet();return}   // Not enough words for even one level
-  goFull();init();
+  goFull();init(lv||0);
+}
+function contGame(){
+  if(pool.length<wpl()){openSet();return}
+  goFull();init(furthest());   // furthest() = levels cleared, so it indexes the next one
 }
 
 // Browsers only allow fullscreen from a user gesture, so this rides the button click
@@ -559,8 +776,16 @@ function doRotate(){
 }
 
 function doHint(){
-  if(!game.playing||!game.word||game.trans)return;
+  if(!game.playing||!game.word||game.trans||game.paused)return;
   speak(game.word.en);
+  // In listen mode the button is a replay button only: showing the spelling
+  // or lighting the next block would defeat the whole exercise.
+  if(S.mode==='listen'){
+    let el2=document.getElementById('fx'),d2=document.createElement('div');
+    d2.textContent='🔊';d2.className='hw';
+    el2.appendChild(d2);setTimeout(()=>d2.remove(),900);
+    return;
+  }
   let expected=game.seq[game.got.length];
   blocks.forEach(b=>{if(!b.hit&&b.letter===expected)b.glow=1200});
   let el=document.getElementById('fx'),d=document.createElement('div');
@@ -593,11 +818,24 @@ function segs(elId,opts,cur,onPick){
 }
 
 function renderSet(){
+  segs('setMode',[{v:'zh',n:'看中文'},{v:'listen',n:'听发音'}],S.mode,v=>S.mode=v);
   segs('setWPL',WPL_OPTS.map(v=>({v,n:v+''})),S.wpl,v=>S.wpl=v);
   segs('setErr',ERR_OPTS,S.maxErr,v=>S.maxErr=v);
   segs('setShuf',[{v:true,n:'打乱'},{v:false,n:'按顺序'}],S.shuffle,v=>S.shuffle=v);
+  segs('setRetry',[{v:true,n:'开'},{v:false,n:'关'}],S.retry,v=>S.retry=v);
+  // weakOnly changes the pool, so rebuild it whenever the toggle moves
+  segs('setWeak',[{v:true,n:'开'},{v:false,n:'关'}],S.weakOnly,v=>{S.weakOnly=v;buildPool()});
+  let wn=weakWords().length;
+  document.getElementById('weakN').textContent=wn?'('+wn+' 个待巩固)':'(暂无错词)';
   renderCats();
   updSelCount();
+}
+
+function clearStats(){
+  STATS={};PROG={best:{},lv:{}};
+  try{localStorage.removeItem(TKEY);localStorage.removeItem(PKEY)}catch(e){}
+  if(S.weakOnly){S.weakOnly=false;saveSet()}
+  buildPool();renderSet();updMenuInfo();
 }
 
 function renderCats(){
@@ -632,6 +870,13 @@ function renderCats(){
       let t=document.createElement('div');t.className='t';
       t.innerHTML=w.en+' <i>'+w.zh+'</i>';
       row.append(c2,t);
+      let st=STATS[w.en];
+      if(st&&(st.ok+st.no)){
+        let m=st.ok/(st.ok+st.no),ms=document.createElement('div');
+        ms.className='ms '+(m>=.8?'good':m<.5?'bad':'');
+        ms.textContent=st.ok+'✓/'+st.no+'✗';
+        row.appendChild(ms);
+      }
       row.onclick=()=>setWord(w.en,!isOn(w.en));
       wrap.appendChild(row);
     });
@@ -678,14 +923,35 @@ function updSelCount(){
 function updMenuInfo(){
   let n=pool.length,per=wpl(),el=document.getElementById('menuInfo');
   if(!el)return;
-  if(n<per){el.innerHTML='<span style="color:#ff6b6b">单词不足一关，请到设置里增选</span>';return}
+  let cont=document.getElementById('btnCont'),best=document.getElementById('menuBest');
+  if(n<per){
+    el.innerHTML='<span style="color:#ff6b6b">单词不足一关，请到设置里增选</span>';
+    if(cont)cont.classList.remove('on');
+    if(best)best.textContent='';
+    return;
+  }
   el.textContent='共 '+n+' 词 · '+totalLv()+' 关 · 每关 '+per+' 词 · '+
-    (S.maxErr>=999?'无限容错':S.maxErr+' 次容错')+' · '+(S.shuffle?'字母打乱':'字母顺序');
+    (S.maxErr>=999?'无限容错':S.maxErr+' 次容错')+' · '+(S.shuffle?'字母打乱':'字母顺序')+
+    ' · '+(S.mode==='listen'?'听发音':'看中文')+
+    (S.weakOnly?' · 只练错词':'')+(S.retry?' · 错词补考':'');
+  // "Continue" only appears when there is an uncleared level left for this pool
+  let f=furthest(),canCont=f>0&&f<totalLv();
+  if(cont)cont.classList.toggle('on',canCont);
+  if(best){
+    let parts=[];
+    if(f>0)parts.push('已通关 '+f+'/'+totalLv()+' 关');
+    if(bestScore())parts.push('最高分 '+bestScore());
+    let learned=Object.keys(STATS).length;
+    if(learned)parts.push('练过 '+learned+' 词');
+    best.textContent=parts.join(' · ');
+  }
 }
 
 let K={left:false,right:false,jump:false,space:false,touch:false};
 let tL=false,tR=false;
 document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'||e.key==='p'||e.key==='P'){togglePause();return}
+  if(game.paused)return;
   if(e.key==='ArrowLeft'||e.key==='a')K.left=true;
   if(e.key==='ArrowRight'||e.key==='d')K.right=true;
   if(e.key==='ArrowUp'||e.key==='w'||e.key===' '){K.jump=true;K.space=true;e.preventDefault()}
@@ -731,13 +997,18 @@ function setupTouch(){
   let brot=document.getElementById('btnRotate');
   on(brot,'click',()=>doRotate());
   on(brot,'touchstart',e=>{e.preventDefault();doRotate()});
+
+  let bp=document.getElementById('btnPause');
+  on(bp,'click',()=>togglePause());
+  on(bp,'touchstart',e=>{e.preventDefault();togglePause()});
 }
 
 function loop(){
   let last=0;
   function frame(t){
     let dt=last?Math.min(t-last,33):16;last=t;
-    if(game.playing){
+    if(game.playing&&!game.paused){
+      runTimers(dt);
       if(game.cut){updateCut(dt);updateWorld(dt)}
       else if(!game.trans)update(dt);
       else updateWorld(dt);
@@ -748,18 +1019,49 @@ function loop(){
   game.anim=requestAnimationFrame(frame);
 }
 
+function setPause(on){
+  if(!game.playing)return;
+  game.paused=on;
+  document.getElementById('pause').classList.toggle('on',on);
+  if(on){
+    try{window.speechSynthesis.cancel()}catch(e){}
+    // Release held inputs so Mario doesn't resume mid-stride
+    K.left=K.right=K.jump=K.space=false;tL=tR=false;
+    document.getElementById('pStat').innerHTML=
+      '第 '+(game.level+1)+' / '+totalLv()+' 关<br>本关进度 '+
+      Math.min(game.idx+1,game.total)+' / '+game.total+'<br>得分 '+game.score;
+  }
+}
+function togglePause(){setPause(!game.paused)}
+function quitToMenu(){
+  recordProg();
+  setPause(false);
+  clearTimers();
+  showMenu();
+}
+
 function update(dt){
   let sp=MS*(dt/16);
   if(K.left||tL){mario.vx=-sp;mario.face=-1}
   else if(K.right||tR){mario.vx=sp;mario.face=1}
   else{mario.vx*=FR;if(Math.abs(mario.vx)<.1)mario.vx=0}
 
-  if(K.jump&&mario.onG){
-    mario.vy=JF*(dt/16);mario.onG=false;mario.jT=14;K.jump=false;
+  // Jump buffering: remember a press made just before landing
+  if(K.jump){mario.buf=JBUF;K.jump=false}
+  else if(mario.buf>0)mario.buf-=dt;
+  // Coyote time: allow the jump for a moment after walking off an edge
+  if(mario.onG)mario.coyote=COYOTE;
+  else if(mario.coyote>0)mario.coyote-=dt;
+
+  if(mario.buf>0&&mario.coyote>0){
+    mario.vy=JF*(dt/16);mario.onG=false;mario.jT=14;
+    mario.buf=0;mario.coyote=0;
     sJump();jumpPuff(mario.x+mario.w/2,mario.y+mario.h);
   }
   if(!mario.onG){
-    mario.vy+=G*(dt/16);mario.jT--;
+    // Lighter gravity going up, heavier coming down, so the arc feels crisp
+    let gs=mario.vy<0?GUP:GDN;
+    mario.vy+=G*gs*(dt/16);mario.jT--;
     if(mario.jT>0&&K.space)mario.vy-=.15*(dt/16);
     mario.state='jump';
   }
@@ -803,7 +1105,7 @@ function updateWorld(dt){
     if(mushroom.waterTimer<=0){
       mushroom.target=Math.min(maxMH(),mushroom.target+mushroom.waterAmount);
       mushroom.waterAmount=0;sMushroom();
-      if(game.pendingClear){game.pendingClear=false;levelClear()}
+      if(game.pendingClear){game.pendingClear=false;afterMainRound()}
     }
   }
   // Hammer animation only — wrong answers cost a life, not mushroom height
@@ -839,7 +1141,9 @@ function wrongBlock(b){
   sError();flyLetter(b.x+b.w/2,b.y,'✗');
   b.bVY=-3;mario.cool=200;
   game.err++;
-  // Hammer visual only; the mushroom keeps its height so 10 words always reach the clouds
+  game.wordErr=(game.wordErr||0)+1;
+  game.combo=0;   // a mistake breaks the streak
+  // Hammer visual only; the mushroom keeps its height so the level stays winnable
   if(mushroom.hammerTimer<=0)mushroom.hammerTimer=18;
   game.score=Math.max(0,game.score-5);
   updHUD();
@@ -853,14 +1157,27 @@ function hitBlock(b){
   flyLetter(b.x+b.w/2,b.y,b.disp);
   burstParts(b.x+b.w/2,b.y);
   coin(b.x+b.w/2,b.y-30);
-  game.score+=10;sHit();speak(b.letter);updHUD();updSlots();
+  // Combo multiplier: every 5 consecutive correct letters adds 1x, capped at 5x
+  game.combo++;
+  if(game.combo>game.bestCombo)game.bestCombo=game.combo;
+  let mult=Math.min(5,1+Math.floor(game.combo/5));
+  game.score+=10*mult;
+  if(mult>1&&game.combo%5===0)comboPop(mult);
+  sHit();speak(b.letter);updHUD();updSlots();
   mario.cool=200;
-  if(game.got.length===game.seq.length){game.trans=true;setTimeout(onDone,500)}
+  if(game.got.length===game.seq.length){game.trans=true;later(500,onDone)}
 }
 
 function onDone(){
   if(!game.word)return;game.trans=true;game.score+=50;game.done++;
+  let clean=!game.wordErr;
+  noteWord(game.word.en,clean);
   game.wordLog.push({en:game.word.en,zh:game.word.zh,s:'ok'});updWordList();
+  logRun(game.word,clean?'ok':'okErr');
+  // Missed words come back for a retry round at the end of the level
+  if(!clean&&S.retry&&!game.retrying&&!game.missed.some(w=>w.en===game.word.en))
+    game.missed.push(game.word);
+  game.wordErr=0;
   sDone();speak(game.word.en);
   let el=document.getElementById('fx');
   let d=document.createElement('div');d.className='big';
@@ -868,17 +1185,50 @@ function onDone(){
   el.appendChild(d);setTimeout(()=>d.remove(),1700);
   for(let i=0;i<18;i++)setTimeout(()=>coin(W*.15+Math.random()*W*.7,H*.1+Math.random()*H*.3),i*70);
   fireworks(W/2,H/2);
-  // One seed per completed word; total growth over the level reaches the clouds exactly
-  let src=blocks.length?blocks[blocks.length-1]:{x:W/2,y:GY-160,w:BS};
-  seeds.push({x:src.x+src.w/2-12,y:src.y-24,w:24,h:24,vy:-5,vx:(Math.random()<.5?-1:1)*.8,
-              grow:maxMH()/game.total});
   let isLast=game.idx>=game.total-1;
-  if(isLast)game.pendingClear=true;   // Cutscene starts once the last growth lands
+  // The mushroom only tracks the main round, so its growth divides that round evenly.
+  // Retry words score normally but add no height (it is already at the clouds).
+  if(!game.retrying){
+    let src=blocks.length?blocks[blocks.length-1]:{x:W/2,y:GY-160,w:BS};
+    seeds.push({x:src.x+src.w/2-12,y:src.y-24,w:24,h:24,vy:-5,vx:(Math.random()<.5?-1:1)*.8,
+                grow:maxMH()/game.total});
+    if(isLast)game.pendingClear=true;   // Growth landing triggers the next stage
+  }
   updHUD();
-  setTimeout(()=>{
-    if(game.pendingClear||game.cut)return;   // Level over; cutscene takes it from here
+  let round=game.round;
+  later(2400,()=>{
+    // A round change (retry round starting, or a new level) already moved us on;
+    // without this guard the stale callback would bump idx and skip a word.
+    if(round!==game.round||game.pendingClear||game.cut)return;
+    if(isLast){game.retrying?levelClear():afterMainRound();return}
     game.idx++;loadWord();
-  },2400);
+  });
+}
+
+// Called when the main round of a level finishes. Either start the retry round
+// for missed words, or play the level-clear cutscene.
+function afterMainRound(){
+  if(game.retrying)return levelClear();   // already the retry round; nothing more to replay
+  if(S.retry&&game.missed.length){
+    game.round++;                          // invalidates any in-flight onDone callback
+    game.retrying=true;
+    game.words=game.missed.slice();
+    game.missed=[];
+    game.total=game.words.length;
+    game.idx=0;game.pendingClear=false;game.trans=true;
+    banner('补考',game.total+' 个错词再来一次');
+    updHUD();                              // switch the HUD to 补考 before the words load
+    later(1200,loadWord);
+    return;
+  }
+  levelClear();
+}
+
+function comboPop(mult){
+  sCoin();
+  let el=document.getElementById('fx'),d=document.createElement('div');
+  d.className='combo';d.textContent='COMBO x'+mult;
+  el.appendChild(d);setTimeout(()=>d.remove(),1000);
 }
 
 function flyLetter(x,y,l){
@@ -1168,8 +1518,12 @@ function drawSeeds(){
 }
 
 window.addEventListener('resize',resize);
+// Auto-pause when the tab or window loses focus, so timers and audio can't
+// run on unattended and the run state stays consistent on return.
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&game.playing)setPause(true)});
+window.addEventListener('blur',()=>{if(game.playing)setPause(true)});
 window.addEventListener('load',()=>{
-  loadSet();updMenuInfo();
+  loadStats();loadSet();updMenuInfo();
   document.getElementById('menu').style.display='flex';
 });
 </script>
