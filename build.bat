@@ -13,6 +13,7 @@ cd /d "%ROOT%"
 
 echo.
 echo [1/4] Syncing web assets...
+copy /Y "%ROOT%mario\index.html" "%ROOT%www\index.html" >nul
 call npx cap sync android
 if errorlevel 1 goto FAIL
 
