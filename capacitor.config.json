@@ -1,5 +1,9 @@
 {
   "appId": "com.yourname.marioenglish",
-  "appName": "超级玛丽学单词",
-  "webDir": "www"
+  "appName": "英语小游戏",
+  "webDir": "www",
+  "server": {
+    "url": "https://englishwords-dphpac9abm1k.edgeone.dev?eo_token=dfb6eb9d5aba4c5222eafb889588f513&eo_time=1787204066",
+    "androidScheme": "https"
+  }
 }
