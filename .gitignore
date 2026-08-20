@@ -1,0 +1,9 @@
+node_modules/
+mario-release.jks
+android/keystore.properties
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/capacitor-android/build/
+*.log

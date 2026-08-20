@@ -1,0 +1,26 @@
+{
+  "name": "englishwords",
+  "version": "1.0.0",
+  "description": "一个超级玛丽风格的英语单词学习游戏。控制玛丽从下往上顶字母砖块，按正确顺序拼出单词；顶对会掉落蘑菇种子让蘑菇长高，顶错会被锤子砸矮蘑菇。纯 HTML5 Canvas 单文件实现，无任何依赖。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnglishStudyForSon/EnglishWords.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EnglishStudyForSon/EnglishWords/issues"
+  },
+  "homepage": "https://github.com/EnglishStudyForSon/EnglishWords#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0"
+  }
+}
