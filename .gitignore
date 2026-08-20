@@ -1,4 +1,6 @@
 node_modules/
+deploy/
+dist/
 mario-release.jks
 android/keystore.properties
 android/.gradle/
